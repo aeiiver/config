@@ -1,0 +1,22 @@
+### shell prompt: '~ $ '
+
+_randcol='\[\e[1;9'$(shuf -i 1-7 -n 1)'m\]'
+_reset='\[\e[0m\]'
+PS1=$_randcol'\w \$'$_reset' '
+unset _randcol _reset
+
+### XDG base directories
+
+export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_STATE_HOME="$HOME"/.local/state
+
+### preferred applications
+
+export EDITOR=
+export VISUAL=
+export PAGER=
+export BROWSER=
+
+# vim: ft=sh

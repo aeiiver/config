@@ -1,0 +1,13 @@
+#
+# $XDG_CONFIG_HOME/git/config
+#
+
+[init]
+	defaultbranch = main
+[push]
+	default = nothing
+[rebase]
+	autosquash = true
+[user]
+	name = aeiiver
+	email = 101661283+aeiiver@users.noreply.github.com

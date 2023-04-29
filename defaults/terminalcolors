@@ -1,0 +1,39 @@
+! https://terminal.sexy/#DgsJztPPKCgo2Wk0scpa57hda2_Wyn_QhcqwwcG6mZmV-2knyOhY-OR2bXL744DSi_nQ8PDw
+! special
+*.foreground:   #ced3cf
+*.background:   #0e0b09
+*.cursorColor:  #ced3cf
+
+! black
+*.color0:       #282828
+*.color8:       #999995
+
+! red
+*.color1:       #d96934
+*.color9:       #fb6927
+
+! green
+*.color2:       #b1ca5a
+*.color10:      #c8e858
+
+! yellow
+*.color3:       #e7b85d
+*.color11:      #f8e476
+
+! blue
+*.color4:       #6b6fd6
+*.color12:      #6d72fb
+
+! magenta
+*.color5:       #ca7fd0
+*.color13:      #e380d2
+
+! cyan
+*.color6:       #85cab0
+*.color14:      #8bf9d0
+
+! white
+*.color7:       #c1c1ba
+*.color15:      #f0f0f0
+
+! vim: ft=xdefaults
