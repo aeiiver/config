@@ -58,7 +58,7 @@ Graphical
     wayland
     hyprland [C]
     foot [C] | alacritty [C]
-    wofi
+    tofi
     waybar (with hyprland extension) [C]
     dunst [C]
     gammastep
