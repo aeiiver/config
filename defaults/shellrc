@@ -2,7 +2,7 @@
 
 _randcol='\[\e[1;9'$(shuf -i 1-7 -n 1)'m\]'
 _reset='\[\e[0m\]'
-PS1=$_randcol'\w \$'$_reset' '
+PS1=$_randcol'\W \$'$_reset' '
 unset _randcol _reset
 
 ### XDG base directories
@@ -14,9 +14,10 @@ export XDG_STATE_HOME="$HOME"/.local/state
 
 ### preferred applications
 
-export EDITOR=
-export VISUAL=
-export PAGER=
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
+export MANPAGER='less -R --use-color -Dd+c -Du+y'
 export BROWSER=
 
 # vim: ft=sh
