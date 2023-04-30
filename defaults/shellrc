@@ -14,9 +14,9 @@ export XDG_STATE_HOME="$HOME"/.local/state
 
 ### preferred applications
 
-export EDITOR='nvim'
-export VISUAL='nvim'
-export PAGER='less'
+export EDITOR=nvim
+export VISUAL=nvim
+export PAGER=less
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
 export BROWSER=
 
