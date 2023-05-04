@@ -1,6 +1,6 @@
 <div align="center">
 
-# le config mess
+# config
 
 **POV: you just `ls -A` 'ed your home directory**
 
@@ -9,88 +9,102 @@
 
 </div>
 
-## System
+## progs
 
-Base
+```sh
+# firmware
+alsa-firmware
+linux-lts
+linux-firmware
+intel-ucode
+sof-firmware
 
-    linux-lts
-    networkmanager
-    systemd-boot
+# core
+base
+base-devel
+bash-completion
 
-Utilities
+# system
+apparmor
+chrony
+dash
+efibootmgr
+networkmanager
+thermald
+tlp
+ufw
 
-    acpi
-    thermald
-    tlp
+# console userland
+acpi
+bat
+dos2unix
+fet.sh-git
+fzf
+git
+htop
+jq
+lazygit
+lynx
+man-db
+man-pages
+moc
+namcap
+ncmpcpp
+neovim
+newsboat
+nnn
+pacman-contrib
+ripgrep
+stow
+tmux
+tree
+xdg-ninja
+xdg-user-dirs
+yay
+yt-dlp
 
-Optional
+# graphical environment
+batsignal
+brightnessctl
+cliphist
+dunst
+foot
+gammastep
+grim
+hyprland
+hyprpicker-git
+network-manager-applet
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+pavucontrol
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
+polkit-gnome
+select-emoji
+slurp
+swappy
+swaybg
+swayidle
+tofi
+ttf-jetbrains-mono-nerd
+waybar-hyprland
+waylock
+wireplumber
+wl-clipboard
+wlogout
+xdg-desktop-portal-hyprland
 
-    dash (as a symlink target from `/bin/sh`)
+# graphical appearance
+mint-themes-legacy
+mint-y-icons-legacy
 
-## User
-
-Console
-
-    git [C]
-    neovim [C]
-    tmux [C]
-    lazygit
-
-Console utilities
-
-    stow
-    yay
-    pfetch | fet.sh
-    xdg-ninja
-    fzf
-    ripgrep
-
-Console applications
-
-    nnn
-    lynx
-    mpd
-    neomutt
-    newsboat [C]
-
-Graphical
-
-    wayland
-    hyprland [C]
-    foot [C] | alacritty [C]
-    tofi
-    waybar (with hyprland extension) [C]
-    dunst [C]
-    gammastep
-    swaybg
-    batsignal
-    wl-clipboard
-    grim + slurp + swappy
-    waylock
-    brightnessctl
-    pipewire + wireplumber
-    xdg-desktop-portal-hyprland
-    polkit-gnome
-
-Graphical applications
-
-    librewolf
-    pavucontrol
-    mpv
-    nm-applet (gui for networkmanager)
-    vscodium [C]
-
-Graphical utilities
-
-    nwg-look
-    wev
-
-### Fonts
-
-    Noto Fonts with emoji pack
-    JetBrains Mono
-
-### Appearance
-
-    GTK theme pack: Mint Y Themes Legacy
-    Icon pack: Mint Y Icons Legacy
+# graphical userland
+flatpak
+mpv
+nwg-look
+wev
+wf-recorder
+```

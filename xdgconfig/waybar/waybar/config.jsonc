@@ -1,46 +1,48 @@
 {
   "layer": "top",
   "position": "top",
-  //"height": 32,
+  "height": 30,
   //"width": 1920,
   "spacing": 0,
-  "modules-left": ["disk", "cpu", "memory", "idle_inhibitor"],
-  "modules-center": ["wlr/workspaces"],
-  "modules-right": ["tray", "pulseaudio", "battery", "clock"],
+  "modules-left": [ "disk", "custom/sep", "cpu", "custom/sep", "memory", ],
+  "modules-center": [ "wlr/workspaces", ],
+  "modules-right": [ "tray", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock" ],
+  //
+  // custom modules
+  //
+  "custom/sep": {
+    "format": "|",
+    "tooltip": false,
+  },
   //
   // left modules
   //
   "disk": {
     "interval": 30,
-    "format": "<span color='#80ffcc'></span> {free}",
-    "path": "/home"
+    "format": "<span color='#adfc9e'>  </span> {free}",
+    "path": "/home",
+    "tooltip": true,
+    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
   },
   "cpu": {
     "interval": 10,
-    "format": "<span color='#ff80cc'></span> {usage}%"
+    "format": "<span color='#b290aa'>  </span> {usage}%"
   },
   "memory": {
     "interval": 30,
-    "format": "<span color='#ffcc80'></span> {used:0.1f}GiB",
+    "format": "<span color='#efc887'>󰟾 </span> {used:0.1f}GiB",
     "tooltip": true,
-    "tooltip-format": "{used:0.1f}GiB / {total:0.1f}GiB"
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    },
-    "tooltip-format-activated": "Idle inhibitor: ON",
-    "tooltip-format-deactivated": "Idle inhibitor: OFF"
+    "tooltip-format": "{used:0.1f}GiB used out of {total:0.1f}GiB ({percentage}%)"
   },
   //
   // center modules
   //
   "wlr/workspaces": {
-    "on-click": "activate",
-    "all-outputs": false,
+    "format": "{icon}",
+    "format-icons": { "urgent": "", "active": "", "default": "󰏗" },
+    "all-outputs": true,
     "active-only": false,
+    "on-click": "activate",
     "persistent_workspaces": {
       "1": [],
       "2": [],
@@ -57,20 +59,14 @@
   //
   // right modules
   //
-  "tray": {},
+  "tray": {
+    "reverse-direction": false
+  },
   "pulseaudio": {
-    "format": "<span color='#cc80ff'>{icon}</span> {volume}%",
-    "format-bluetooth": "{icon} {volume}%",
-    "format-muted": "<span color='#cc80ff'></span> {volume}% (M)",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", ""]
-    },
+    "format": "<span color='#b79bda'>{icon}</span> {volume}%",
+    "format-bluetooth": "<span color='#b79bda'>{icon}</span> {volume}%",
+    "format-muted": "<span color='#b79bda'>󰝟</span>  {volume}% (M)",
+    "format-icons": { "default": ["󰕿", "󰖀", "󰕾 "] },
     "scroll-step": 2,
     "on-click": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
@@ -78,21 +74,16 @@
   "battery": {
     "interval": 60,
     "bat": "BAT1",
-    "states": {
-      "good": 80,
-      "warning": 40,
-      "critical": 20
-    },
-    "format": "<span color='#80ccff'>{icon}</span> {capacity}%",
-    "format-charging": "<span color='#80ccff'>🗲</span> {capacity}%",
-    "format-plugged": "<span color='#80ccff'></span> {capacity}%",
-    // "format-good": "", // An empty format will hide the module
-    "format-full": "󰂃 {capacity}%",
-    "format-icons": [" ", " ", " ", " ", " "]
+    "states": { "good": 80, "warning": 40, "critical": 20 },
+    "format": "<span color='#91cfeb'>{icon}</span> {capacity}%",
+    "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+    "format-charging": "<span color='#91cfeb'>󰂄</span> {capacity}%",
+    "format-plugged": "<span color='#91cfeb'>  </span> {capacity}%",
+    "format-full": "<span color='#91cfeb'></span> {capacity}%"
   },
   "clock": {
-    "format": "<span color='#ccff80'></span> {:%H:%M}",
-    "format-alt": "<span color='#ccff80'></span>  {:%A, %B %d, %Y (%R)}",
+    "format": "<span color='#c1fdbc'>󰥔 </span> {:%H:%M}",
+    "format-alt": "<span color='#c1fdbc'>  </span> {:%A, %B %d, %Y (%R)}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>"
   }
 }

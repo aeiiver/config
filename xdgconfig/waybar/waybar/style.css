@@ -5,15 +5,16 @@
   border: none;
   border-radius: 0;
   box-shadow: none;
-  min-height: 0;
 }
 
 #waybar {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
 }
 
 tooltip {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(12, 12, 12, 0.9);
+  border: 1px solid #545454;
   border-radius: 8px;
 }
 tooltip label {
@@ -23,31 +24,33 @@ tooltip label {
 /* module groups */
 
 .modules-left {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0 0 12px 0;
+  background-color: rgba(240, 240, 240, 0.1);
+  border-radius: 0 0 8px 0;
+  padding: 0 5px;
 }
 
 .modules-center {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0 0 12px 12px;
+  background-color: rgba(240, 240, 240, 0.1);
+  border-radius: 0 0 8px 8px;
 }
 
 .modules-right {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0 0 0 12px;
+  background-color: rgba(240, 240, 240, 0.1);
+  border-radius: 0 0 0 8px;
+  padding: 0 5px;
 }
 
 /* global module style */
 
 widget > :not(#tray) {
-  font-family: monospace;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0 0 12px 12px;
-  padding: 2px 8px;
-  margin: 0 2px 2px 2px;
-  min-width: 16px;
+  padding: 3px 4px;
+}
+#custom-sep {
+  color: #545454;
+  padding: 0;
+  margin: 0;
 }
 
 /* per-module style */
@@ -67,27 +70,20 @@ widget > :not(#tray) {
 
 /* ================ */
 
-#idle_inhibitor {
-}
-
-/* ================ */
-
 #workspaces button {
   padding: 0 2px;
   margin: 0 2px;
-  color: #7c6969;
-  border-radius: 100%;
-  transition: color 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-  transition: background-color 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  color: #776969;
 }
-/* with hyprland, 'focused' is 'active' */
-/* #workspaces button.focused */
+#workspaces button.visible {
+  color: #cccccc;
+}
+/* in hyprland, 'focused' is 'active' */
 #workspaces button.active {
-  color: #dcc1f7;
+  color: #bffefe;
 }
 #workspaces button.urgent {
-  background-color: #f8b8b7;
-  color: #000000;
+  color: #f8b8b7;
 }
 #workspaces * {
   box-shadow: inherit;
