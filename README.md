@@ -14,9 +14,9 @@
 ```sh
 # firmware
 alsa-firmware
-linux-lts
-linux-firmware
 intel-ucode
+linux-firmware
+linux-lts
 sof-firmware
 
 # core
@@ -44,12 +44,11 @@ git
 htop
 jq
 lazygit
+lsof
 lynx
 man-db
 man-pages
-moc
 namcap
-ncmpcpp
 neovim
 newsboat
 nnn
@@ -97,7 +96,7 @@ wl-clipboard
 wlogout
 xdg-desktop-portal-hyprland
 
-# graphical appearance
+# graphical GTK theme/icon
 mint-themes-legacy
 mint-y-icons-legacy
 
@@ -106,5 +105,4 @@ flatpak
 mpv
 nwg-look
 wev
-wf-recorder
 ```

@@ -58,7 +58,7 @@ highlight article "[0-9A-Za-z._-]+[.][0-9A-Za-z._/#-]+" green default underline
 highlight article "^[a-zA-Z]+://[0-9A-Za-z._-]+[.][0-9A-Za-z._/#-]+" green default underline
 
 # make headings apparent
-highlight all "---.+---"       yellow default bold
+highlight all "---.+"          yellow default bold
 highlight feedlist ".+0/0.."   default default invis
 
 # make articles colorful
