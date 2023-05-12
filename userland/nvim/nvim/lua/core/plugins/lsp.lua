@@ -17,13 +17,18 @@ return {
       { 'hrsh7th/nvim-cmp' }, -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
       { 'L3MON4D3/LuaSnip' }, -- Required
+
       { 'saadparwaiz1/cmp_luasnip' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-buffer' },
     },
     config = function()
       -- general LSP settings
-      local lsp = require('lsp-zero').preset({})
+      local lsp = require('lsp-zero').preset({
+        manage_nvim_cmp = {
+          set_sources = 'recommended',
+        },
+      })
 
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({
@@ -37,6 +42,7 @@ return {
       end)
 
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      lsp.ensure_installed({ 'lua_ls' })
 
       lsp.setup()
 
@@ -48,11 +54,11 @@ return {
         sources = {
           { name = 'path' },
           { name = 'nvim_lsp' },
-          { name = 'luasnip' },
           { name = 'buffer' },
+          { name = 'luasnip' },
         },
         mapping = {
-          ['<CR>'] = cmp.mapping.confirm({ select = false }),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
           ['<C-Space>'] = cmp.mapping(function()
             if cmp.visible() then

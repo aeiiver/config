@@ -20,12 +20,16 @@ else
 
 	tmp=$(mktemp -dp .)
 	trap "rm -rf $tmp" SIGHUP SIGINT SIGQUIT SIGABRT SIGTERM
+
 	git clone https://aur.archlinux.org/"$AUR_HELPER".git "$tmp"
 	cd "$tmp" || exit 1
 	makepkg -sri --noconfirm
 	cd ..
+
 	rm -rf "$tmp"
 fi
 
 sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' |
 	"$AUR_HELPER" -S --needed -
+cd "$(dirname $0)"/graphical
+stow *

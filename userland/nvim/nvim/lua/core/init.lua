@@ -1,8 +1,8 @@
-require('dendro.options')
-require('dendro.keymaps')
-require('dendro.autocmds')
+require('core.options')
+require('core.keymaps')
+require('core.autocmds')
 
--- use lazy.nvim as my plugin manager
+-- use lazy.nvim as the plugin manager
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -11,4 +11,4 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup('dendro.plugins')
+require('lazy').setup('core.plugins')

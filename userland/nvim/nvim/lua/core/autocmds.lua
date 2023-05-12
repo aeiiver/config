@@ -2,7 +2,7 @@
 -- https://github.com/LazyVim/LazyVim/blob/7ce1b1519a45f48aa4b5f35b7b7a886b42fe56d8/lua/lazyvim/config/autocmds.lua
 
 local function augroup(name)
-  return vim.api.nvim_create_augroup('nahida_' .. name, { clear = true })
+  return vim.api.nvim_create_augroup('core_' .. name, { clear = true })
 end
 
 -- check if we need to reload the file when it changed
