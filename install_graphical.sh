@@ -1,17 +1,19 @@
 #!/bin/bash
 
-# dependencies to run this script:
-#   base-devel
+# assumptions:
+#   - arch linux
+#   - base-devel is installed
 
 # environment variables
 AUR_HELPER=${AUR_HELPER:-yay}
 
 # don't run as root
 if [ $EUID -eq 0 ]; then
-	printf 'Why are you running me as root?\n'
+	printf 'Why are you running me with root privileges?\n'
 	exit 1
 fi
 
+# prepare aur helper
 if command -v "$AUR_HELPER" >/dev/null; then
 	printf '%s was found.\n' "$AUR_HELPER"
 else
@@ -29,6 +31,7 @@ else
 	rm -rf "$tmp"
 fi
 
+# use stow as symlink farmer
 if command -v stow >/dev/null; then
 	printf 'stow was found.\n'
 else
@@ -36,7 +39,11 @@ else
 	sudo pacman -S --needed --noconfirm stow
 fi
 
+# install
 sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' |
 	"$AUR_HELPER" -S --needed -
 cd "$(dirname $0)"/graphical
+
+# configure
 stow *
+bemoji -D all

@@ -63,6 +63,7 @@ yt-dlp
 
 # graphical environment
 batsignal
+bemoji
 brightnessctl
 cliphist
 dunst
@@ -81,7 +82,6 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 polkit-gnome
-select-emoji
 slurp
 swappy
 swaybg
