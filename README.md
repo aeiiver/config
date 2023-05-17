@@ -38,7 +38,6 @@ ufw
 acpi
 bat
 dos2unix
-fet.sh-git
 fzf
 git
 htop

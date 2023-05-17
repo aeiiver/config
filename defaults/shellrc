@@ -17,4 +17,11 @@ export PAGER=less
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
 export BROWSER=
 
-# vim: ft=sh
+# unmask ^R and ^S
+stty -ixon
+
+# path
+prepend_path() { export PATH="$(/usr/bin/realpath "$1")${PATH:+:$PATH}"; }
+append_path() { export PATH="${PATH:+$PATH:}$(/usr/bin/realpath "$1")"; }
+
+# vim: ft=sh: fdm=marker

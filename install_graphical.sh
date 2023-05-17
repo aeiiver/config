@@ -6,7 +6,7 @@
 # environment variables
 AUR_HELPER=${AUR_HELPER:-yay}
 
-# don't run as root, you unsmart
+# don't run as root
 if [ $EUID -eq 0 ]; then
 	printf 'Why are you running me as root?\n'
 	exit 1
@@ -27,6 +27,13 @@ else
 	cd ..
 
 	rm -rf "$tmp"
+fi
+
+if command -v stow >/dev/null; then
+	printf 'stow was found.\n'
+else
+	printf 'stow was not found. Installing stow...\n'
+	sudo pacman -S --needed --noconfirm stow
 fi
 
 sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' |
