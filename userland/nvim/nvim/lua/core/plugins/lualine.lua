@@ -1,12 +1,10 @@
-local function void()
+local function pad()
   return {
-    function()
-      return '%='
-    end,
+    function() return '%=' end,
   }
 end
 
-local function lsp()
+local function lsp_client()
   return {
     function()
       local msg = '~'
@@ -52,7 +50,7 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'filename', 'diagnostics', 'branch', 'diff' },
-        lualine_c = { void(), lsp() },
+        lualine_c = { pad(), lsp_client() },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress', 'location' },
         lualine_z = {},

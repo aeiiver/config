@@ -7,9 +7,7 @@ return {
       { 'neovim/nvim-lspconfig' }, -- Required
       {
         'williamboman/mason.nvim', -- Optional
-        build = function()
-          pcall(vim.cmd, 'MasonUpdate')
-        end,
+        build = function() pcall(vim.cmd, 'MasonUpdate') end,
       },
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
@@ -36,9 +34,11 @@ return {
           preserve_mappings = false,
         })
 
-        vim.keymap.set({ 'n', 'x' }, '<leader>lf', function()
-          vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
-        end)
+        vim.keymap.set(
+          { 'n', 'x' },
+          '<leader>lf',
+          function() vim.lsp.buf.format({ async = false, timeout_ms = 10000 }) end
+        )
       end)
 
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())

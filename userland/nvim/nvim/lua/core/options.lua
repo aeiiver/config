@@ -29,4 +29,4 @@ vim.opt.guicursor = ''
 
 -- netrw
 vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 24
+vim.g.netrw_winsize = 20
