@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 
 -- open netrw
-vim.keymap.set('n', '<leader>e', [[:Ex<CR>]])
+vim.keymap.set('n', '<leader>-', [[:Ex<CR>]])
 
 -- append next line to current line without moving cursor
 vim.keymap.set('n', 'J', [[mjJ`j]])
@@ -46,20 +46,23 @@ vim.keymap.set('v', '<leader>p', [["+p]])
 vim.keymap.set('v', '<leader>P', [["+P]])
 -- select latest inserted text
 vim.keymap.set('n', '<leader>v', '`[v`]')
+
 -- trim trailing whitespaces
 vim.keymap.set('n', '<leader>x', [[mx:%s/\s\+$//e<CR>`x]])
 
+-- substitute
+vim.keymap.set('n', '<M-s>', [[:s/]])
+vim.keymap.set('v', '<M-s>', [[:s/]])
 -- substitute all occurences of word under cursor or selection
 vim.keymap.set('n', '<M-L>', [[:%s/<C-r><C-w>/<C-r><C-w>/gI<left><left><left>]])
 vim.keymap.set('v', '<M-L>', [[""y:%s/<C-r>"/<C-r>"/gI<left><left><left>]])
-
 -- quick search-replace
 vim.keymap.set('n', '<M-d>', [[*Ncgn]])
 vim.keymap.set('v', '<M-d>', [[*Ncgn]], { remap = true })
 
 -- jump to errors
-vim.keymap.set('n', '<C-j>', ':cnext<CR>zz')
-vim.keymap.set('n', '<C-k>', ':cprev<CR>zz')
+vim.keymap.set('n', '<C-j>', [[:cnext<CR>zz]])
+vim.keymap.set('n', '<C-k>', [[:cprev<CR>zz]])
 -- jump to locations
-vim.keymap.set('n', '<leader>j', ':lnext<CR>zz')
-vim.keymap.set('n', '<leader>k', ':lprev<CR>zz')
+vim.keymap.set('n', '<leader>j', [[:lnext<CR>zz]])
+vim.keymap.set('n', '<leader>k', [[:lprev<CR>zz]])
