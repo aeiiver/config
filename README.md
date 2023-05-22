@@ -38,6 +38,7 @@ ufw
 acpi
 bat
 dos2unix
+fd
 fzf
 git
 htop
