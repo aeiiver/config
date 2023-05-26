@@ -21,7 +21,17 @@ export BROWSER=
 stty -ixon
 
 # path
-prepend_path() { PATH="$(/usr/bin/realpath "$1")${PATH:+:$PATH}"; export PATH; }
-append_path() { PATH="${PATH:+$PATH:}$(/usr/bin/realpath "$1")"; export PATH; }
+prepend_path() {
+  case :"$PATH": in
+    *:"$1":*) return ;;
+  esac
+  PATH="$1${PATH:+:$PATH}"
+}
+append_path() {
+  case :"$PATH": in
+    *:"$1":*) return ;;
+  esac
+  PATH="${PATH:+$PATH:}$1"
+}
 
 # vim: ft=sh: fdm=marker
