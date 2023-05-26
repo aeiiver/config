@@ -1,46 +1,74 @@
 #!/bin/bash
 
-# environment variables
+### Environment variables
+
 AUR_HELPER=${AUR_HELPER:-yay}
 
-# don't run with root privileges
+### Main script
+
+# Don't run with root privileges
 if [ $EUID -eq 0 ]; then
-	printf "Don't run this script with root privileges.\n"
-	printf 'Exiting...\n'
+	echo "Don't run this script with root privileges."
 	exit 1
 fi
 
-# prepare AUR helper
+# Prepare AUR helper
 if command -v "$AUR_HELPER" >/dev/null; then
-	printf '%s was found.\n' "$AUR_HELPER"
+	echo "$AUR_HELPER was found."
 else
-	printf '%s was not found. Installing %s...\n' "$AUR_HELPER" "$AUR_HELPER"
-	sudo pacman -S --needed --noconfirm git
+	while :; do
+		read -rp "$AUR_HELPER was not found. Install $AUR_HELPER? [y/n]: " yn
+		case "$yn" in
+		y | Y) break ;;
+		n | N)
+			cat <<EOF
+An AUR helper is required in order to install the graphical environment.
+You can install one yourself, then run this script again with the environment
+variable 'AUR_HELPER' set to it.
+EOF
+			exit 1
+			;;
+		*) echo "I don't understand." ;;
+		esac
+		unset yn
+	done
 
+	sudo pacman -S --needed --noconfirm git
 	tmp=$(mktemp -dp .)
 	trap 'rm -rf $tmp' SIGHUP SIGINT SIGQUIT SIGABRT SIGTERM
 
 	git clone https://aur.archlinux.org/"$AUR_HELPER".git "$tmp"
-	cd "$tmp" || printf 'cd failed' && exit 1
-	makepkg -sri --noconfirm
-	cd ..
+	if [ -z "$(ls -A "$tmp")" ]; then
+		cat <<EOF
+$AUR_HELPER couldn't be found in the AUR.
+If you're sure it exists, you can install it yourself, then run this script
+again with the environment variable 'AUR_HELPER' set to it.
+EOF
+		exit 1
+	fi
+
+	(
+		cd "$tmp" || printf 'cd failed' && exit 1
+		makepkg -sri --noconfirm
+	)
 
 	rm -rf "$tmp"
 fi
 
-# use stow as symlink farmer
+# Use stow as symlink farmer
 if command -v stow >/dev/null; then
-	printf 'stow was found.\n'
+	echo 'stow was found.'
 else
-	printf 'stow was not found. Installing stow...\n'
+	echo 'stow was not found. Installing stow...'
 	sudo pacman -S --needed --noconfirm stow
 fi
 
-# install
-sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' |
-	"$AUR_HELPER" -S --needed -
-cd "$(dirname "$0")"/graphical || printf 'cd failed' && exit 1
+# Install
+sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' | "$AUR_HELPER" -S --needed -
 
-# configure
-stow ./*
+# Configure
+(
+	cd graphical || printf 'cd failed' && exit 1
+	stow ./*
+)
 bemoji -D all
