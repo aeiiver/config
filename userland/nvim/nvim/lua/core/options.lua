@@ -1,8 +1,7 @@
 -- context
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.textwidth = 80
-vim.opt.colorcolumn = '+1'
+vim.opt.colorcolumn = '81'
 vim.opt.scrolloff = 8
 
 -- indent
