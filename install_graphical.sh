@@ -21,11 +21,11 @@ else
 		case "$yn" in
 		y | Y) break ;;
 		n | N)
-			cat <<EOF
-An AUR helper is required in order to install the graphical environment.
-You can install one yourself, then run this script again with the environment
-variable 'AUR_HELPER' set to it.
-EOF
+			cat <<-EOF
+				An AUR helper is required in order to install the graphical environment.
+				You can install one yourself, then run this script again with the environment
+				variable 'AUR_HELPER' set to it.
+			EOF
 			exit 1
 			;;
 		*) echo "I don't understand." ;;
@@ -39,18 +39,18 @@ EOF
 
 	git clone https://aur.archlinux.org/"$AUR_HELPER".git "$tmp"
 	if [ -z "$(ls -A "$tmp")" ]; then
-		cat <<EOF
-$AUR_HELPER couldn't be found in the AUR.
-If you're sure it exists, you can install it yourself, then run this script
-again with the environment variable 'AUR_HELPER' set to it.
-EOF
+		cat <<-EOF
+			$AUR_HELPER couldn't be found in the AUR.
+			If you're sure it exists, you can install it yourself, then run this script
+			again with the environment variable 'AUR_HELPER' set to it.
+		EOF
 		exit 1
 	fi
 
 	(
 		cd "$tmp" || printf 'cd failed' && exit 1
 		makepkg -sri --noconfirm
-	)
+	) || printf 'makepkg failed' && exit 1
 
 	rm -rf "$tmp"
 fi
@@ -70,5 +70,6 @@ sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' | "$A
 (
 	cd graphical || printf 'cd failed' && exit 1
 	stow ./*
-)
+) || printf 'stow failed' && exit 1
+
 bemoji -D all
