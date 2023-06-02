@@ -5,7 +5,6 @@ vim.opt.colorcolumn = '81'
 vim.opt.scrolloff = 8
 
 -- indent
-vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true

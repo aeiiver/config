@@ -1,7 +1,9 @@
 vim.g.mapleader = ' '
 
 -- open netrw
-vim.keymap.set('n', '<leader>-', [[:Ex<CR>]])
+vim.keymap.set('n', '<leader>e', [[:Ex<CR>]])
+-- toggle wrap
+vim.keymap.set('n', '<M-z>', [[:set wrap!<CR>]])
 
 -- append next line to current line without moving cursor
 vim.keymap.set('n', 'J', [[mjJ`j]])
@@ -13,7 +15,7 @@ vim.keymap.set('n', '<C-u>', [[<C-u>zz]])
 vim.keymap.set('n', 'n', [[nzzzv]])
 vim.keymap.set('n', 'N', [[Nzzzv]])
 
--- move lines & fix indent
+-- move lines & indent
 vim.keymap.set('n', '<M-j>', [[:m .+1<CR>==]])
 vim.keymap.set('n', '<M-k>', [[:m .-2<CR>==]])
 vim.keymap.set('i', '<M-j>', [[<esc>:m .+1<CR>==gi]])

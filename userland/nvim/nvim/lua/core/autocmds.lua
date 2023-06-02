@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.highlight.on_yank({ timeout = 50 }) end,
 })
 
--- autoresize all splits whenever the window gets resized
+-- autoresize splits whenever the window gets resized
 vim.api.nvim_create_autocmd('VimResized', {
   group = augroup('autoresize_splits'),
   callback = function() vim.cmd('tabdo wincmd =') end,
