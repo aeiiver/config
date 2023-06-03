@@ -1,70 +1,71 @@
 vim.g.mapleader = ' '
 
--- open netrw
-vim.keymap.set('n', '<leader>e', [[:Ex<CR>]])
--- toggle wrap
-vim.keymap.set('n', '<M-z>', [[:set wrap!<CR>]])
+local function km(mode, lhs, rhs, opts)
+  local defaults = { noremap = true, silent = true }
+  local merged = vim.tbl_deep_extend('force', defaults, opts)
+  vim.keymap.set(mode, lhs, rhs, merged)
+end
 
--- append next line to current line without moving cursor
-vim.keymap.set('n', 'J', [[mjJ`j]])
+-- toggle options
+km('n', '<M-w>', [[:set wrap!<CR>]], { desc = 'Toggle wrap' })
+km('n', '<M-q>', [[:set list!<CR>]], { desc = 'Toggle listchars' })
 
--- center cursor after half-page scroll jumps
-vim.keymap.set('n', '<C-d>', [[<C-d>zz]])
-vim.keymap.set('n', '<C-u>', [[<C-u>zz]])
--- center cursor after search jumps & unfold as necessary
-vim.keymap.set('n', 'n', [[nzzzv]])
-vim.keymap.set('n', 'N', [[Nzzzv]])
+-- navigation
+km('n', '<Leader>e', [[:Explore<CR>]], { desc = 'Explore' })
 
--- move lines & indent
-vim.keymap.set('n', '<M-j>', [[:m .+1<CR>==]])
-vim.keymap.set('n', '<M-k>', [[:m .-2<CR>==]])
-vim.keymap.set('i', '<M-j>', [[<esc>:m .+1<CR>==gi]])
-vim.keymap.set('i', '<M-k>', [[<esc>:m .-2<CR>==gi]])
-vim.keymap.set('v', '<M-j>', [[:m '>+1<CR>gv=gv]])
-vim.keymap.set('v', '<M-k>', [[:m '<-2<CR>gv=gv]])
--- duplicate lines
-vim.keymap.set('n', '<M-J>', [[:co .<CR>]])
-vim.keymap.set('n', '<M-K>', [[:co .-1<CR>]])
-vim.keymap.set('i', '<M-J>', [[<C-o>:co .<CR>]])
-vim.keymap.set('i', '<M-K>', [[<C-o>:co .-1<CR>]])
-vim.keymap.set('v', '<M-J>', [[:co '<-1<CR>gv]])
-vim.keymap.set('v', '<M-K>', [[:co '><CR>gv]])
+km('n', '<C-d>', [[<C-d>zz]], { desc = 'Page down' })
+km('n', '<C-u>', [[<C-u>zz]], { desc = 'Page up' })
+km('n', 'n', [[nzzzv]], { desc = 'Repeat search' })
+km('n', 'N', [[Nzzzv]], { desc = 'Repeat search in the opposite direction' })
 
--- change indent without quitting out of visual mode
-vim.keymap.set('v', '>', [[:><CR>gv]])
-vim.keymap.set('v', '<', [[:<<CR>gv]])
--- escape instead of quitting out of insert mode
-vim.keymap.set('i', '<C-c>', [[<esc>]])
--- del key
-vim.keymap.set('i', '<C-l>', [[<del>]])
+km('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next quicklist item' })
+km('n', '<C-k>', [[:cprev<CR>]], { desc = 'Previous quicklist item' })
+km('n', '<C-M-j>', [[:lnext<CR>]], { desc = 'Next location item' })
+km('n', '<C-M-k>', [[:lprev<CR>]], { desc = 'Previous location item' })
 
--- copy to system clipboard
-vim.keymap.set('n', '<leader>yy', [["+yy]])
-vim.keymap.set('v', '<leader>y', [["+y]])
--- paste from system clipboard
-vim.keymap.set('n', '<leader>p', [["+p]])
-vim.keymap.set('n', '<leader>P', [["+P]])
-vim.keymap.set('v', '<leader>p', [["+p]])
-vim.keymap.set('v', '<leader>P', [["+P]])
--- select latest inserted text
-vim.keymap.set('n', '<leader>v', '`[v`]')
+-- convenience (the truth is idk where to put those)
+km('i', '<C-c>', [[<Esc>]], { desc = 'Escape' })
+km('n', '<Leader>v', '`[v`]', { desc = 'Select yanked, inserted or selected' })
 
--- trim trailing whitespaces
-vim.keymap.set('n', '<leader>x', [[mx:%s/\s\+$//e<CR>`x]])
+-- search/replace
+km('n', '<M-d>', [[*Ncgn]], { desc = 'Change word with *' })
+km('v', '<M-d>', [[*Ncgn]], { remap = true, desc = 'Change selection with *' })
 
--- substitute
-vim.keymap.set('n', '<M-s>', [[:s/]])
-vim.keymap.set('v', '<M-s>', [[:s/]])
--- substitute all occurences of word under cursor or selection
-vim.keymap.set('n', '<M-L>', [[:%s/<C-r><C-w>/<C-r><C-w>/gI<left><left><left>]])
-vim.keymap.set('v', '<M-L>', [[""y:%s/<C-r>"/<C-r>"/gI<left><left><left>]])
--- quick search-replace
-vim.keymap.set('n', '<M-d>', [[*Ncgn]])
-vim.keymap.set('v', '<M-d>', [[*Ncgn]], { remap = true })
+-- linewise
+km('n', 'J', [[mjJ`j]], { desc = 'Join lines' })
 
--- jump to errors
-vim.keymap.set('n', '<C-j>', [[:cnext<CR>zz]])
-vim.keymap.set('n', '<C-k>', [[:cprev<CR>zz]])
--- jump to locations
-vim.keymap.set('n', '<leader>j', [[:lnext<CR>zz]])
-vim.keymap.set('n', '<leader>k', [[:lprev<CR>zz]])
+km('n', '<M-j>', [[:m .+1<CR>==]], { desc = 'Move line down' })
+km('n', '<M-k>', [[:m .-2<CR>==]], { desc = 'Move line up' })
+km('v', '<M-j>', [[:m '>+1<CR>gv=gv]], { desc = 'Move lines down' })
+km('v', '<M-k>', [[:m '<-2<CR>gv=gv]], { desc = 'Move lines up' })
+
+km('n', '<M-J>', [[:co .<CR>]], { desc = 'Copy line down' })
+km('n', '<M-K>', [[:co .-1<CR>]], { desc = 'Copy line up' })
+km('v', '<M-J>', [[:co '<-1<CR>gv]], { desc = 'Copy lines down' })
+km('v', '<M-K>', [[:co '><CR>gv]], { desc = 'Copy lines up' })
+
+km('v', '>', [[>gv]], { desc = 'Indent' })
+km('v', '<', [[<gv]], { desc = 'Outdent' })
+
+-- filewise
+km(
+  'n',
+  '<Leader>x',
+  [[mx:%s/\s\+$//e<CR>`x]],
+  { desc = 'Trim trailing whitespaces' }
+)
+
+-- system clipboard
+km('n', '<Leader>yy', [["+yy]], { desc = 'Yank to system clipboard' })
+km('v', '<Leader>y', [["+y]], { desc = 'Yank to system clipboard' })
+
+km('n', '<Leader>p', [["+p]], { desc = 'Put from system clipboard' })
+km('n', '<Leader>P', [["+P]], { desc = 'Put from system clipboard' })
+km('v', '<Leader>p', [["+p]], { desc = 'Put from system clipboard' })
+km('v', '<Leader>P', [["+P]], { desc = 'Put from system clipboard' })
+
+-- window
+km('n', '<C-Up>', [[:resize -2<CR>]], { desc = 'Resize up' })
+km('n', '<C-Down>', [[:resize +2<CR>]], { desc = 'Resize down' })
+km('n', '<C-Left>', [[:vert resize -2<CR>]], { desc = 'Vert resize left' })
+km('n', '<C-Right>', [[:vert resize +2<CR>]], { desc = 'Vert resize right' })

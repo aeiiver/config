@@ -2,27 +2,27 @@ local function augroup(name)
   return vim.api.nvim_create_augroup('core_' .. name, { clear = true })
 end
 
--- reload buffers that were changed outside of vim
+-- reload buffers if they get changed outside of vim
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   group = augroup('checktime'),
   command = 'checktime',
 })
 
--- highlight on yank
+-- provide a visual feedback on what gets yanked
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = augroup('highlight_yank'),
   callback = function() vim.highlight.on_yank({ timeout = 50 }) end,
 })
 
--- autoresize splits whenever the window gets resized
+-- resize windows if the vim window gets resized
 vim.api.nvim_create_autocmd('VimResized', {
-  group = augroup('autoresize_splits'),
+  group = augroup('resize_windows'),
   callback = function() vim.cmd('tabdo wincmd =') end,
 })
 
--- go to the last location after opening a buffer
+-- restore last known cursor position
 vim.api.nvim_create_autocmd('BufReadPost', {
-  group = augroup('last_location'),
+  group = augroup('restore_position'),
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local line_count = vim.api.nvim_buf_line_count(0)
@@ -32,10 +32,11 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
--- mkdir if necessary when saving a file
+-- mkdir if necessary when writing a file
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = augroup('auto_mkdir'),
   callback = function(event)
+    if event.match:match('^%w%w+://') then return end
     local file = vim.loop.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
   end,

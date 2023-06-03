@@ -37,7 +37,8 @@ return {
         vim.keymap.set(
           { 'n', 'x' },
           '<leader>lf',
-          function() vim.lsp.buf.format({ async = false, timeout_ms = 10000 }) end
+          function() vim.lsp.buf.format({ async = false, timeout_ms = 10000 }) end,
+          { desc = 'Format' }
         )
       end)
 
