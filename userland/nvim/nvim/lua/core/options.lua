@@ -29,3 +29,6 @@ vim.opt.guicursor = ''
 -- netrw
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 20
+
+-- statusline
+vim.opt.statusline = [[%<%f %h%m%r%=0x%B (%l:%c%V) %y]]
