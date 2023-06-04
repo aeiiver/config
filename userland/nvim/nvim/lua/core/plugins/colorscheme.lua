@@ -8,6 +8,8 @@ return {
   {
     'savq/melange-nvim',
     dependencies = { 'rktjmp/lush.nvim' },
-    config = function() transparent_bg('melange') end,
+    config = function()
+      transparent_bg('melange')
+    end,
   },
 }

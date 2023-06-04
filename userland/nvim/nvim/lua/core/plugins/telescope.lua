@@ -4,7 +4,9 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local b = require('telescope.builtin')
-      local function grep() b.grep_string({ search = vim.fn.input('grep: ') }) end
+      local function grep()
+        b.grep_string({ search = vim.fn.input('grep: ') })
+      end
 
       vim.keymap.set('n', '<leader>ff', b.find_files, { desc = 'Find files' })
       vim.keymap.set('n', '<leader>fg', grep, { desc = 'Grep string' })

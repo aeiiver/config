@@ -11,13 +11,17 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight yanks',
   group = augroup('highlight_yanks'),
-  callback = function() vim.highlight.on_yank({ timeout = 50 }) end,
+  callback = function()
+    vim.highlight.on_yank({ timeout = 50 })
+  end,
 })
 
 vim.api.nvim_create_autocmd('VimResized', {
   desc = 'Resize window splits when the vim window gets resized',
   group = augroup('resize_splits'),
-  callback = function() vim.cmd('tabdo wincmd =') end,
+  callback = function()
+    vim.cmd('tabdo wincmd =')
+  end,
 })
 
 vim.api.nvim_create_autocmd('BufReadPost', {

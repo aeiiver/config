@@ -1,59 +1,61 @@
-local function describe(desc, opts)
-  if opts then
-    return vim.tbl_deep_extend('force', opts, { desc = desc })
-  end
-  return { desc = desc }
-end
-
 local function setup_mason()
   require('mason').setup()
   require('mason-lspconfig').setup({ ensure_installed = { 'lua_ls' } })
 end
 
 local function setup_lspconfig()
-  -- global mappings
+  --[[ global mappings ]]
   -- stylua: ignore start
-  vim.keymap.set('n', '<leader>gl', vim.diagnostic.open_float, describe('Show diagnostic details'))
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, describe('Next diagnostic'))
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, describe('Previous diagnostic'))
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, describe('Find buffer diagnostics'))
-  vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist, describe('Find workspace diagnostics'))
+  vim.keymap.set('n', '<leader>gl', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Next diagnostic' })
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Previous diagnostic' })
+  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Find buffer diagnostics' })
+  vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist, { desc = 'Find workspace diagnostics' })
   -- stylua: ignore end
 
-  -- buffer-local mappings
+  --[[ buffer-local mappings ]]
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lspconfig_attach', {}),
-    desc = 'LSP attach',
+    desc = 'Map LSP keys',
     callback = function(event)
+      local function map(mode, lhs, rhs, opts)
+        opts = opts or {}
+        opts.buffer = event.buf
+        vim.keymap.set(mode, lhs, rhs, opts)
+      end
+
       -- stylua: ignore start
-      local opts = { buffer = event.buf }
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, describe('Go definition', opts))
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, describe('Go declaration', opts))
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, describe('Go implementation', opts))
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, describe('Find references', opts))
-      vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, describe('Go type definition', opts))
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, describe('Show hover info', opts))
-      vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, describe('Show signature help', opts))
-      vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, describe('Add workspace folder', opts))
-      vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, describe('Remove workspace folder', opts))
-      vim.keymap.set('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, describe('List workspace folders', opts))
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, describe('Rename symbol', opts))
-      vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, describe('Show code actions', opts))
-      vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, describe('Format', opts))
+      map('n', '<leader>gd', vim.lsp.buf.definition, { desc = 'Go definition' })
+      map('n', '<leader>gD', vim.lsp.buf.declaration, { desc = 'Go declaration' })
+      map('n', '<leader>gi', vim.lsp.buf.implementation, { desc = 'Go implementation' })
+      map('n', '<leader>gt', vim.lsp.buf.type_definition, { desc = 'Go type definition' })
+      map('n', '<leader>gr', vim.lsp.buf.references, { desc = 'Find references' })
+      map('n', 'K', vim.lsp.buf.hover, { desc = 'Show hover info' })
+      map('i', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature help' })
+      map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+      map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code actions' })
+      map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
+      map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
+      map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { desc = 'Remove workspace folder' })
+      map('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = 'List workspace folders' })
       -- stylua: ignore end
 
       local group = vim.api.nvim_create_augroup('lspconfig_highlight', {})
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        desc = 'Highlight references',
         group = group,
-        desc = 'LSP highlight',
         buffer = event.buf,
-        callback = function() vim.lsp.buf.document_highlight() end,
+        callback = function()
+          vim.lsp.buf.document_highlight()
+        end,
       })
       vim.api.nvim_create_autocmd('CursorMoved', {
+        desc = 'Clear reference highlights',
         group = group,
-        desc = 'LSP clear highlights',
         buffer = event.buf,
-        callback = function() vim.lsp.buf.clear_references() end,
+        callback = function()
+          vim.lsp.buf.clear_references()
+        end,
       })
     end,
   })
@@ -63,14 +65,13 @@ local function setup_completion()
   local lspconfig = require('lspconfig')
   local servers = require('mason-lspconfig').get_installed_servers()
   local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-  local with_lsp_capabilities = { capabilities = lsp_capabilities }
 
   for _, server in ipairs(servers) do
     local opts = {}
     if server == 'lua_ls' then
       opts = { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
     end
-    opts = vim.tbl_deep_extend('force', opts, with_lsp_capabilities)
+    opts.capabilities = lsp_capabilities
     lspconfig[server].setup(opts)
   end
 
@@ -79,7 +80,11 @@ local function setup_completion()
 
   cmp.setup({
     completion = { autocomplete = false },
-    snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
     sources = {
       { name = 'nvim_lsp' },
       { name = 'buffer' },
