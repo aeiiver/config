@@ -8,6 +8,7 @@ end
 --[[ toggle settings ]]
 map('n', '<M-w>', [[:set wrap!<CR>]], { desc = 'Toggle wrap' })
 map('n', '<M-q>', [[:set list!<CR>]], { desc = 'Toggle listchars' })
+map('n', '<M-e>', [[:set hlsearch!<CR>]], { desc = 'Toggle search highlights' })
 
 --[[ navigation ]]
 map('n', '<leader>e', [[:Explore<CR>]], { desc = 'Netrw' })
