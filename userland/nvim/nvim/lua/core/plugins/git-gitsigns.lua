@@ -32,6 +32,7 @@ local function attach(bufnr)
   map('n', '<leader>hd', gs.diffthis, { desc = 'Diff' })
   map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Full diff' })
   map('n', '<leader>hx', gs.toggle_deleted, { desc = 'Show deleted' })
+  map('n', '<leader>hq', function() gs.setqflist('all') end, { desc = 'Find all hunks' })
 
   -- stylua: ignore end
 end
