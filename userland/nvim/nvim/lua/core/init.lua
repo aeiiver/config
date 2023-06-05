@@ -8,5 +8,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require('core.options')
 require('core.keymaps')
+require('core.statusline')
 require('core.autocmds')
 require('lazy').setup('core.plugins')
