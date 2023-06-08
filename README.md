@@ -54,6 +54,7 @@ newsboat
 nnn
 pacman-contrib
 ripgrep
+rsync
 stow
 tmux
 tree
@@ -98,8 +99,8 @@ xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 
 # graphical GTK theme/icon
-mint-themes-legacy
-mint-y-icons-legacy
+mint-l-icons
+mint-l-theme
 
 # graphical userland
 dragon-drop
