@@ -17,9 +17,6 @@ export PAGER=less
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
 export BROWSER=
 
-# unmask ^R and ^S
-stty -ixon
-
 # path
 prepend_path() {
   case :"$PATH": in
@@ -34,4 +31,4 @@ append_path() {
   PATH="${PATH:+$PATH:}$1"
 }
 
-# vim: ft=sh: fdm=marker
+# vim: ft=sh
