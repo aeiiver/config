@@ -19,45 +19,56 @@ linux-firmware
 linux-lts
 sof-firmware
 
-# core
+# system
 base
 base-devel
 bash-completion
-
-# system
-apparmor
-chrony
 dash
 efibootmgr
+
+# system daemons
+apparmor
+chrony
 networkmanager
 thermald
 tlp
 ufw
+vnstat
 
 # console userland
 acpi
 bat
+distrobox
 dos2unix
+expac
 fd
 fzf
 git
+handlr
 htop
+hyperfine
 jq
 lazygit
+lostfiles
 lsof
 lynx
 man-db
 man-pages
-namcap
 neovim
 newsboat
 nnn
 pacman-contrib
+pacutils
+reflector
 ripgrep
 rsync
+shellcheck
+shfmt
 stow
 tmux
+trash-cli
 tree
+viu
 xdg-ninja
 xdg-user-dirs
 yay
