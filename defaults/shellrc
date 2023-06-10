@@ -1,8 +1,8 @@
 # shell prompt: '~ $ '
-_randcol='\[\e[1;9'$(shuf -i 1-7 -n 1)'m\]'
-_reset='\[\e[0m\]'
-PS1=$_randcol'\W \$'$_reset' '
-unset _randcol _reset
+col='\[\e[1;'$(shuf -e 3 9 -n 1)$(shuf -i 0-7 -n 1)'m\]'
+reset='\[\e[0m\]'
+PS1=$col'\W \$'$reset' '
+unset col reset
 
 # XDG base directories
 export XDG_CACHE_HOME="$HOME"/.cache
@@ -10,25 +10,11 @@ export XDG_CONFIG_HOME="$HOME"/.config
 export XDG_DATA_HOME="$HOME"/.local/share
 export XDG_STATE_HOME="$HOME"/.local/state
 
-# preferred applications
+# Preferred applications
 export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=less
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
 export BROWSER=
-
-# path
-prepend_path() {
-  case :"$PATH": in
-    *:"$1":*) return ;;
-  esac
-  PATH="$1${PATH:+:$PATH}"
-}
-append_path() {
-  case :"$PATH": in
-    *:"$1":*) return ;;
-  esac
-  PATH="${PATH:+$PATH:}$1"
-}
 
 # vim: ft=sh
