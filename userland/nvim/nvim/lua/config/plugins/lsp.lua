@@ -4,7 +4,6 @@ local function setup_mason()
 end
 
 local function setup_lspconfig()
-  --[[ global mappings ]]
   -- stylua: ignore start
   vim.keymap.set('n', '<leader>gl', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Next diagnostic' })
@@ -13,10 +12,9 @@ local function setup_lspconfig()
   vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist, { desc = 'Find workspace diagnostics' })
   -- stylua: ignore end
 
-  --[[ buffer-local mappings ]]
   vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'Map LSP buffer-local keys',
     group = vim.api.nvim_create_augroup('lspconfig_attach', {}),
-    desc = 'Map LSP keys',
     callback = function(event)
       local function map(mode, lhs, rhs, opts)
         opts = opts or {}
@@ -25,14 +23,14 @@ local function setup_lspconfig()
       end
 
       -- stylua: ignore start
-      map('n', '<leader>gd', vim.lsp.buf.definition, { desc = 'Go definition' })
-      map('n', '<leader>gD', vim.lsp.buf.declaration, { desc = 'Go declaration' })
+      map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go declaration' })
+      map('n', 'gd', vim.lsp.buf.definition, { desc = 'Go definition' })
       map('n', '<leader>gi', vim.lsp.buf.implementation, { desc = 'Go implementation' })
       map('n', '<leader>gt', vim.lsp.buf.type_definition, { desc = 'Go type definition' })
       map('n', '<leader>gr', vim.lsp.buf.references, { desc = 'Find references' })
-      map('n', 'K', vim.lsp.buf.hover, { desc = 'Show hover info' })
+      map('n', 'K', vim.lsp.buf.hover, { desc = 'Show hover details' })
       map('i', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature help' })
-      map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+      map('n', '<leader>r', vim.lsp.buf.rename, { desc = 'Rename symbol' })
       map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code actions' })
       map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
       map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
@@ -45,17 +43,13 @@ local function setup_lspconfig()
         desc = 'Highlight references',
         group = group,
         buffer = event.buf,
-        callback = function()
-          vim.lsp.buf.document_highlight()
-        end,
+        callback = vim.lsp.buf.document_highlight,
       })
       vim.api.nvim_create_autocmd('CursorMoved', {
         desc = 'Clear reference highlights',
         group = group,
         buffer = event.buf,
-        callback = function()
-          vim.lsp.buf.clear_references()
-        end,
+        callback = vim.lsp.buf.clear_references,
       })
     end,
   })

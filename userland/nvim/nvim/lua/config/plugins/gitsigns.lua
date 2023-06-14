@@ -8,8 +8,6 @@ local function attach(bufnr)
   end
 
   -- stylua: ignore start
-
-  --[[ Navigation ]]
   map('n', ']c', function()
     if vim.wo.diff then return ']c' end
     vim.schedule(function() gs.next_hunk() end)
@@ -22,7 +20,6 @@ local function attach(bufnr)
     return '<Ignore>'
   end, { expr = true, desc = 'Previous hunk' })
 
-  --[[ Actions ]]
   map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
   map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Unstage hunk' })
   map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
@@ -33,7 +30,6 @@ local function attach(bufnr)
   map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Full diff' })
   map('n', '<leader>hx', gs.toggle_deleted, { desc = 'Show deleted' })
   map('n', '<leader>hq', function() gs.setqflist('all') end, { desc = 'Find all hunks' })
-
   -- stylua: ignore end
 end
 
