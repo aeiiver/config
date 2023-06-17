@@ -13,9 +13,12 @@ local function setup_lspconfig()
   -- stylua: ignore end
 
   vim.api.nvim_create_autocmd('LspAttach', {
-    desc = 'Map LSP buffer-local keys',
+    desc = 'Map LSP keys',
     group = vim.api.nvim_create_augroup('lspconfig_attach', {}),
     callback = function(event)
+      local function supported(capability)
+        return vim.lsp.get_client_by_id(event.data.client_id).server_capabilities[capability .. 'Provider']
+      end
       local function map(mode, lhs, rhs, opts)
         opts = opts or {}
         opts.buffer = event.buf
@@ -38,19 +41,21 @@ local function setup_lspconfig()
       map('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = 'List workspace folders' })
       -- stylua: ignore end
 
-      local group = vim.api.nvim_create_augroup('lspconfig_highlight', {})
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-        desc = 'Highlight references',
-        group = group,
-        buffer = event.buf,
-        callback = vim.lsp.buf.document_highlight,
-      })
-      vim.api.nvim_create_autocmd('CursorMoved', {
-        desc = 'Clear reference highlights',
-        group = group,
-        buffer = event.buf,
-        callback = vim.lsp.buf.clear_references,
-      })
+      if supported('documentHighlight') then
+        local group = vim.api.nvim_create_augroup('lspconfig_highlight', {})
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          desc = 'Highlight references',
+          group = group,
+          buffer = event.buf,
+          callback = vim.lsp.buf.document_highlight,
+        })
+        vim.api.nvim_create_autocmd('CursorMoved', {
+          desc = 'Clear reference highlights',
+          group = group,
+          buffer = event.buf,
+          callback = vim.lsp.buf.clear_references,
+        })
+      end
     end,
   })
 end
