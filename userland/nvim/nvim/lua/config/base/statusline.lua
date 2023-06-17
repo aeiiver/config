@@ -17,23 +17,19 @@ end
 local function setup_lsp_client()
   vim.g.config_lsp_client = '~'
 
-  vim.api.nvim_create_autocmd('LspAttach', {
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'LspAttach' }, {
     desc = 'Update g:config_lsp_client variable',
     group = vim.api.nvim_create_augroup('config_lsp_client', {}),
     callback = function()
-      local clients = vim.lsp.get_active_clients()
+      local clients = {}
+      vim.lsp.for_each_buffer_client(0, function(client, client_id, bufnr)
+        table.insert(clients, client.name)
+      end)
       if #clients == 0 then
         vim.g.config_lsp_client = '~'
         return
       end
-      local ft = vim.api.nvim_buf_get_option(0, 'ft')
-      for _, supported_ft in ipairs(clients[1].config.filetypes) do
-        if supported_ft == ft then
-          vim.g.config_lsp_client = '<' .. clients[1].name .. '>'
-          return
-        end
-      end
-      vim.g.config_lsp_client = '~'
+      vim.g.config_lsp_client = '<' .. table.concat(clients, '+') .. '>'
     end,
   })
   return '%{g:config_lsp_client}'
