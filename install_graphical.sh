@@ -64,7 +64,7 @@ else
 fi
 
 # Install
-sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' | "$AUR_HELPER" -S --needed -
+sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d; s/\s*#.*//' | "$AUR_HELPER" -S --needed -
 
 # Configure
 (

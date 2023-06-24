@@ -75,39 +75,40 @@ yay
 yt-dlp
 
 # graphical environment
-batsignal
-bemoji
-brightnessctl
-cliphist
-dunst
-foot
-gammastep
-grim
-hyprland
-hyprpicker-git
-network-manager-applet
-noto-fonts
-noto-fonts-cjk
-noto-fonts-emoji
-pavucontrol
-pipewire
-pipewire-alsa
-pipewire-jack
-pipewire-pulse
-polkit-gnome
-slurp
-swappy
-swaybg
-swayidle
-tofi
-ttf-jetbrains-mono-nerd
-waybar-hyprland
-waylock
-wireplumber
-wl-clipboard
-wlogout
-xdg-desktop-portal-gtk
-xdg-desktop-portal-hyprland
+batsignal                   # battery monitor
+bemoji                      # emoji & math symbol provider
+brightnessctl               # backlight control
+cliphist                    # clipboard manager
+dunst                       # notification daemon
+foot                        # $TERMINAL
+gammastep                   # color temperature adjuster
+grim                        # screenshot utility
+hyprland                    # wayland compositor
+hyprpicker                  # color picker
+network-manager-applet      # network system tray
+noto-fonts                  # regular font
+noto-fonts-cjk              # regular font extension
+noto-fonts-emoji            # regular font extension
+pavucontrol                 # sound control panel
+pipewire                    # sound server
+pipewire-alsa               # sound server compabilility for ALSA
+pipewire-jack               # sound server compabilility for JACK
+pipewire-pulse              # sound server compabilility for PulseAudio
+playerctl                   # media control
+polkit-gnome                # authentication agent
+slurp                       # screen region selector
+swappy                      # image annotation utility
+swaybg                      # wallpaper manager
+swayidle                    # idle manager
+tofi                        # selector
+ttf-jetbrains-mono-nerd     # monospace font
+waybar-hyprland             # bar
+waylock                     # locker
+wireplumber                 # PipeWire session manager
+wl-clipboard                # clipboard
+wlogout                     # power panel
+xdg-desktop-portal-gtk          # file picker capability
+xdg-desktop-portal-hyprland     # XDG desktop portal impl. for Hyprland
 
 # graphical GTK theme/icon
 mint-l-icons
