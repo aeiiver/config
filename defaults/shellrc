@@ -1,4 +1,4 @@
-# shell prompt: '~ $ '
+# Shell prompt: '~ $ '
 col='\[\e[1;'$(shuf -e 3 9 -n 1)$(shuf -i 0-7 -n 1)'m\]'
 reset='\[\e[0m\]'
 PS1=$col'\W \$'$reset' '
@@ -13,8 +13,7 @@ export XDG_STATE_HOME="$HOME"/.local/state
 # Preferred applications
 export EDITOR=nvim
 export VISUAL=nvim
-export PAGER=less
+export PAGER='less -R'
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
-export BROWSER=
 
 # vim: ft=sh
