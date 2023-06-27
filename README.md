@@ -59,11 +59,10 @@ newsboat
 nnn
 pacman-contrib
 pacutils
+pkgfile
 reflector
 ripgrep
 rsync
-shellcheck
-shfmt
 stow
 tmux
 trash-cli
