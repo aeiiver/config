@@ -1,5 +1,5 @@
 * {
-  font-family: sans-serif;
+  font-family: system-ui;
   font-size: 16px;
   font-weight: normal;
   border: none;
@@ -14,46 +14,42 @@
 
 tooltip {
   background-color: rgba(12, 12, 12, 0.9);
-  border: 1px solid #545454;
+  border: 1px solid #666666;
   border-radius: 8px;
 }
+
 tooltip label {
   color: #cccccc;
 }
 
-/* module groups */
+/* Module groups */
 
 .modules-left {
-  /*background-color: rgba(240, 240, 240, 0.1);*/
-  border-radius: 0 0 8px 0;
-  padding: 0 5px;
+  padding: 0 4px;
 }
 
 .modules-center {
-  /*background-color: rgba(240, 240, 240, 0.1);*/
-  border-radius: 0 0 8px 8px;
 }
 
 .modules-right {
-  /*background-color: rgba(240, 240, 240, 0.1);*/
-  border-radius: 0 0 0 8px;
-  padding: 0 5px;
+  padding: 0 4px;
 }
 
-/* global module style */
+/* Global module style */
 
 widget > :not(#tray) {
   font-size: 14px;
   font-weight: bold;
   padding: 3px 4px;
 }
+
 #custom-sep {
-  color: #545454;
+  color: #666666;
   padding: 0;
   margin: 0;
 }
 
-/* per-module style */
+/* Per-module style */
 
 #disk {
 }
@@ -73,18 +69,22 @@ widget > :not(#tray) {
 #workspaces button {
   padding: 0 2px;
   margin: 0 2px;
-  color: #776969;
+  color: #538069;
 }
+
 #workspaces button.visible {
-  color: #cccccc;
+  color: #538069;
 }
-/* in hyprland, 'focused' is 'active' */
+
+/* In Hyprland, 'focused' is 'active' */
 #workspaces button.active {
-  color: #bffefe;
+  color: #ccff99;
 }
+
 #workspaces button.urgent {
-  color: #f8b8b7;
+  color: #ffffff;
 }
+
 #workspaces * {
   box-shadow: inherit;
   text-shadow: inherit;
@@ -107,6 +107,7 @@ widget > :not(#tray) {
 
 #battery {
 }
+
 #battery.critical:not(.charging) {
 }
 

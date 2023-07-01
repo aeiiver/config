@@ -1,28 +1,40 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
-  //"width": 1920,
   "spacing": 0,
-  "modules-left": [ "disk", "custom/sep", "cpu", "custom/sep", "memory", ],
-  "modules-center": [ "wlr/workspaces", ],
-  "modules-right": [ "tray", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock" ],
+  "modules-left": ["disk", "custom/sep", "cpu", "custom/sep", "memory", "custom/sep", "custom/media"],
+  "modules-center": ["wlr/workspaces"],
+  "modules-right": ["tray", "custom/sep", "wireplumber", "custom/sep", "battery", "custom/sep", "clock"],
   //
-  // custom modules
+  // Custom modules
   //
   "custom/sep": {
     "format": "|",
-    "tooltip": false,
+    "tooltip": false
+  },
+  "custom/media": {
+    "format": "<span color='#adfcfe'>{icon}  </span> {}",
+    "format-icons": {
+      "Playing": "",
+      "Paused": "",
+    },
+    "exec": "playerctl metadata --format '{\"text\": \"{{playerName}}\", \"tooltip\": \"{{status}}: {{markup_escape(artist)}} ~ {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "escape": true,
+    "return-type": "json",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next",
+    "smooth-scrolling-threshold": 10,
   },
   //
-  // left modules
+  // Left modules
   //
   "disk": {
-    "interval": 30,
+    "interval": 60,
     "format": "<span color='#adfc9e'>  </span> {free}",
     "path": "/home",
     "tooltip": true,
-    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
+    "tooltip-format": "{used} ({percentage_used}%) used out of {total} on {path}"
   },
   "cpu": {
     "interval": 10,
@@ -30,16 +42,20 @@
   },
   "memory": {
     "interval": 30,
-    "format": "<span color='#efc887'>󰟾 </span> {used:0.1f}GiB",
+    "format": "<span color='#efc887'>  </span> {used:0.1f}GiB",
     "tooltip": true,
-    "tooltip-format": "{used:0.1f}GiB used out of {total:0.1f}GiB ({percentage}%)"
+    "tooltip-format": "{used:0.1f}GiB ({percentage}%) used out of {total:0.1f}GiB"
   },
   //
-  // center modules
+  // Center modules
   //
   "wlr/workspaces": {
     "format": "{icon}",
-    "format-icons": { "urgent": "", "active": "", "default": "󰏗" },
+    "format-icons": {
+      "default": "󰏗",
+      "active": "",
+      "urgent": ""
+    },
     "all-outputs": true,
     "active-only": false,
     "on-click": "activate",
@@ -57,16 +73,14 @@
     }
   },
   //
-  // right modules
+  // Right modules
   //
   "tray": {
     "reverse-direction": false
   },
-  "pulseaudio": {
-    "format": "<span color='#b79bda'>{icon}</span> {volume}%",
-    "format-bluetooth": "<span color='#b79bda'>{icon}</span> {volume}%",
-    "format-muted": "<span color='#b79bda'>󰝟</span>  {volume}% (M)",
-    "format-icons": { "default": ["󰕿", "󰖀", "󰕾 "] },
+  "wireplumber": {
+    "format": "<span color='#b79bda'>󰕾 </span> {volume}%",
+    "format-muted": "<span color='#b79bda'> </span> {volume}%",
     "scroll-step": 2,
     "on-click": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
@@ -74,16 +88,18 @@
   "battery": {
     "interval": 60,
     "bat": "BAT1",
+    "adapter": "ACAD",
     "states": { "good": 80, "warning": 40, "critical": 20 },
     "format": "<span color='#91cfeb'>{icon}</span> {capacity}%",
     "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+    "format-time": "{H}h {M}min",
     "format-charging": "<span color='#91cfeb'>󰂄</span> {capacity}%",
     "format-plugged": "<span color='#91cfeb'>  </span> {capacity}%",
     "format-full": "<span color='#91cfeb'></span> {capacity}%"
   },
   "clock": {
     "format": "<span color='#c1fdbc'>󰥔 </span> {:%H:%M}",
-    "format-alt": "<span color='#c1fdbc'>  </span> {:%A, %B %d, %Y (%R)}",
+    "format-alt": "<span color='#c1fdbc'>  </span> {:%A, %B %d %Y, %H:%M}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>"
   }
 }

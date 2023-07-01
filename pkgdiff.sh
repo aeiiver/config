@@ -2,4 +2,4 @@
 
 comm -3 \
 	<(pacman -Qqe) \
-	<(sed '1,/```/d' README.md | sort | sed '1,/```/d; s/\s*#.*//')
+	<(sort pkglist | sed -E '/^$|^#/d')
