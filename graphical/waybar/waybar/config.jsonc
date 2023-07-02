@@ -4,7 +4,7 @@
   "spacing": 0,
   "modules-left": ["disk", "custom/sep", "cpu", "custom/sep", "memory", "custom/sep", "custom/media"],
   "modules-center": ["wlr/workspaces"],
-  "modules-right": ["tray", "custom/sep", "wireplumber", "custom/sep", "battery", "custom/sep", "clock"],
+  "modules-right": ["tray", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock"],
   //
   // Custom modules
   //
@@ -78,7 +78,7 @@
   "tray": {
     "reverse-direction": false
   },
-  "wireplumber": {
+  "pulseaudio": {
     "format": "<span color='#b79bda'>󰕾 </span> {volume}%",
     "format-muted": "<span color='#b79bda'> </span> {volume}%",
     "scroll-step": 2,

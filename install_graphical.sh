@@ -57,7 +57,7 @@ else
 	sudo pacman -S --needed --noconfirm stow
 fi
 
-sed -n '/^# Graphical environment$/,/^$/p' pkglist | sort | sed '1,/#/d' | "$AUR_HELPER" -S --needed -
+sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' | "$AUR_HELPER" -S --needed -
 
 (
 	cd graphical || printf 'cd failed' && exit 1
