@@ -28,7 +28,9 @@ efibootmgr
 
 # daemons
 apparmor
+avahi
 chrony
+cups
 networkmanager
 thermald
 tlp
@@ -37,7 +39,9 @@ vnstat
 
 # console userland
 acpi
+age
 bat
+cmus
 dos2unix
 expac
 fd
@@ -52,6 +56,7 @@ lostfiles
 lsof
 man-db
 man-pages
+mpv
 neovim
 newsboat
 nnn
@@ -63,6 +68,7 @@ reflector
 ripgrep
 rsync
 stow
+tagutil
 tmux
 trash-cli
 tree
