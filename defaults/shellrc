@@ -1,5 +1,5 @@
 # Shell prompt: '~ $ '
-col='\[\e[1;'$(shuf -e 3 9 -n 1)$(shuf -i 0-7 -n 1)'m\]'
+col='\[\e[1;'$(shuf -e 3 9 -n 1)$(shuf -i 1-7 -n 1)'m\]'
 reset='\[\e[0m\]'
 PS1=$col'\W \$'$reset' '
 unset col reset
