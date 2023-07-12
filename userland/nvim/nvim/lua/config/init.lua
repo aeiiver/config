@@ -1,10 +1,4 @@
-local M = {}
-
-M.setup = function()
-  require('config.base').setup()
-end
-
-M.load_plugins = function()
+local function load_plugins()
   local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -17,12 +11,14 @@ M.load_plugins = function()
     })
   end
   vim.opt.rtp:prepend(lazypath)
-
-  require('lazy').setup('config.plugins', {
-    install = {
-      colorscheme = { 'melange' },
-    },
-  })
+  require('lazy').setup('config.plugins')
 end
 
-return M
+local function setup()
+  require('config.base').setup()
+  load_plugins()
+end
+
+return {
+  setup = setup,
+}

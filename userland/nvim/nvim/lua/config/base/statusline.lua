@@ -1,24 +1,25 @@
-local function setup_git_branch()
-  -- if you switch to another branch from vim, then gg, this probably won't update
-  local proc = io.popen('git rev-parse --abbrev-ref HEAD 2>/dev/null')
+local function git_branch()
+  -- if you switch to another branch from vim, then gg because this probably won't update
+  local proc = io.popen('git rev-parse --abbrev-ref HEAD 2>/dev/null', 'r')
   if not proc then
     return
   end
   local stdout = proc:read('*a')
   proc:close()
 
-  vim.g.config_git_branch = stdout:match('^%s*(.-)%s*$') or ''
-  if vim.g.config_git_branch ~= '' then
-    vim.g.config_git_branch = '(' .. vim.g.config_git_branch .. ') '
+  local branch = stdout:match('^(.+)%s+')
+  if branch ~= '' then
+    vim.g.config_git_branch = '(' .. branch .. ')'
+  else
+    vim.g.config_git_branch = ''
   end
+
   return '%{g:config_git_branch}'
 end
 
-local function setup_lsp_client()
-  vim.g.config_lsp_client = '~'
-
+local function lsp_client()
   vim.api.nvim_create_autocmd({ 'BufEnter', 'LspAttach' }, {
-    desc = 'Update g:config_lsp_client variable',
+    desc = 'Update LSP client list in the statusline',
     group = vim.api.nvim_create_augroup('config_lsp_client', {}),
     callback = function()
       local clients = {}
@@ -32,52 +33,65 @@ local function setup_lsp_client()
       vim.g.config_lsp_client = '<' .. table.concat(clients, '+') .. '>'
     end,
   })
+
   return '%{g:config_lsp_client}'
 end
 
-local function hl(hl_group, text)
-  return '%#' .. hl_group .. '#' .. text .. '%*'
+local function setup(active, inactive)
+  local active_str = table.concat(active or {}, '')
+  local inactive_str = table.concat(inactive or {}, '')
+
+  local group = vim.api.nvim_create_augroup('config_statusline', {})
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
+    desc = 'Switch statusline to active',
+    group = group,
+    callback = function()
+      vim.opt_local.statusline = active_str
+    end,
+  })
+  vim.api.nvim_create_autocmd({ 'BufLeave', 'WinLeave' }, {
+    desc = 'Switch statusline to inactive',
+    group = group,
+    callback = function()
+      vim.opt_local.statusline = inactive_str
+    end,
+  })
+  vim.api.nvim_create_autocmd('FileType', {
+    desc = 'Switch statusline to inactive when entering Netrw',
+    group = group,
+    pattern = 'netrw',
+    callback = function()
+      vim.opt_local.statusline = inactive_str
+    end,
+  })
 end
 
-local git_branch = setup_git_branch()
-local lsp_client = setup_lsp_client()
+local function hlcolor(hl_group, str)
+  return '%#' .. hl_group .. '#' .. str .. '%*'
+end
 
-local active_statusline = table.concat({
+local active = {
   '%<',
-  hl('Function', git_branch),
-  hl('String', '%t'),
-  hl('Identifier', ' %h%r%m'),
-  hl('Normal', '%='),
-  hl('Constant', lsp_client),
-  hl('Normal', '%='),
-  hl('Statement', '%y '),
-  hl('Character', '[%{&ff}] '),
-  hl('Normal', '0x%B '),
-  hl('PreProc', '(%l:%c%V)'),
-}, '')
+  hlcolor('Function', '%(' .. git_branch() .. ' %)'),
+  hlcolor('String', '%t'),
+  hlcolor('Identifier', '%( %h%r%m%w%)'),
+  hlcolor('Normal', '%='),
+  hlcolor('Constant', lsp_client()),
+  hlcolor('Normal', '%='),
+  hlcolor('Statement', '%(%y %)'),
+  hlcolor('Character', '%((%{&ff}) %)'),
+  hlcolor('Identifier', '0x%B'),
+  hlcolor('PreProc', '%( (%l:%c%V)%)'),
+}
 
-local inactive_statusline = table.concat({
+local inactive = {
   '%<',
-  hl('String', '%t'),
-  hl('Identifier', ' %h%r%m'),
-  hl('Normal', '%='),
-  hl('Number', '%y '),
-  hl('Normal', '0x%B '),
-  hl('PreProc', '(%l:%c%V)'),
-}, '')
+  hlcolor('String', '%t'),
+  hlcolor('Identifier', '%( %h%r%m%w%)'),
+  hlcolor('Normal', '%='),
+  hlcolor('Statement', '%(%y %)'),
+  hlcolor('Identifier', '0x%B'),
+  hlcolor('PreProc', '%( (%l:%c%V)%)'),
+}
 
-local group = vim.api.nvim_create_augroup('config_statusline', {})
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter' }, {
-  desc = 'Switch statusline to active',
-  group = group,
-  callback = function()
-    vim.opt.statusline = active_statusline
-  end,
-})
-vim.api.nvim_create_autocmd({ 'WinLeave' }, {
-  desc = 'Switch statusline to inactive',
-  group = group,
-  callback = function()
-    vim.opt.statusline = inactive_statusline
-  end,
-})
+setup(active, inactive)

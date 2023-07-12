@@ -1,10 +1,10 @@
-local M = {}
-
-M.setup = function()
+local function setup()
   require('config.base.options')
   require('config.base.keymaps')
   require('config.base.autocmds')
   require('config.base.statusline')
 end
 
-return M
+return {
+  setup = setup,
+}

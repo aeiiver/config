@@ -1,3 +1,1 @@
-local config = require('config')
-config.setup()
-config.load_plugins()
+require('config').setup()

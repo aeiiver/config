@@ -3,11 +3,11 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.colorcolumn = '81'
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 12
 
 -- indent
-vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
@@ -20,10 +20,6 @@ vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.undofile = true
 
--- appearance
-vim.opt.guicursor = {}
-vim.opt.termguicolors = true
-
 -- netrw
 vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 20
+vim.g.netrw_winsize = 75

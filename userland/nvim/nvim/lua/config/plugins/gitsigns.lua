@@ -23,6 +23,7 @@ local function attach(bufnr)
   map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
   map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Unstage hunk' })
   map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
+  map('n', '<leader>hr', gs.reset_buffer, { desc = 'Restore file' })
   map('n', '<leader>hh', gs.preview_hunk_inline, { desc = 'Preview hunk' })
   map('n', '<leader>hb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
   map('n', '<leader>hB', function() gs.blame_line({ full = true }) end, { desc = 'Blame' })
@@ -36,8 +37,6 @@ end
 return {
   {
     'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup({ on_attach = attach })
-    end,
+    opts = { on_attach = attach },
   },
 }

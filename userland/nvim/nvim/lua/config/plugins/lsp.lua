@@ -14,20 +14,20 @@ local function setup_lspconfig()
 
   vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'Map LSP keys',
-    group = vim.api.nvim_create_augroup('lspconfig_attach', {}),
-    callback = function(event)
+    group = vim.api.nvim_create_augroup('config_lspconfig_keys', {}),
+    callback = function(args)
       local function supported(capability)
-        return vim.lsp.get_client_by_id(event.data.client_id).server_capabilities[capability .. 'Provider']
+        return vim.lsp.get_client_by_id(args.data.client_id).server_capabilities[capability .. 'Provider']
       end
       local function map(mode, lhs, rhs, opts)
-        opts = opts or {}
-        opts.buffer = event.buf
-        vim.keymap.set(mode, lhs, rhs, opts)
+        local options = opts or {}
+        options.buffer = args.buf
+        vim.keymap.set(mode, lhs, rhs, options)
       end
 
       -- stylua: ignore start
-      map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go declaration' })
       map('n', 'gd', vim.lsp.buf.definition, { desc = 'Go definition' })
+      map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go declaration' })
       map('n', '<leader>gi', vim.lsp.buf.implementation, { desc = 'Go implementation' })
       map('n', '<leader>gt', vim.lsp.buf.type_definition, { desc = 'Go type definition' })
       map('n', '<leader>gr', vim.lsp.buf.references, { desc = 'Find references' })
@@ -42,17 +42,18 @@ local function setup_lspconfig()
       -- stylua: ignore end
 
       if supported('documentHighlight') then
-        local group = vim.api.nvim_create_augroup('lspconfig_highlight', {})
+        -- stylua: ignore
+        local group = vim.api.nvim_create_augroup('config_lspconfig_highlight', {})
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           desc = 'Highlight references',
           group = group,
-          buffer = event.buf,
+          buffer = args.buf,
           callback = vim.lsp.buf.document_highlight,
         })
         vim.api.nvim_create_autocmd('CursorMoved', {
           desc = 'Clear reference highlights',
           group = group,
-          buffer = event.buf,
+          buffer = args.buf,
           callback = vim.lsp.buf.clear_references,
         })
       end
@@ -68,7 +69,7 @@ local function setup_completion()
   for _, server in ipairs(servers) do
     local opts = {}
     if server == 'lua_ls' then
-      opts = { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+      opts.settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
     end
     opts.capabilities = lsp_capabilities
     lspconfig[server].setup(opts)

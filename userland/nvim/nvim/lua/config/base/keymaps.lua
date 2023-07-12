@@ -1,68 +1,54 @@
 local function map(mode, lhs, rhs, opts)
-  local merged = vim.tbl_extend('force', { silent = true }, opts)
+  local merged = vim.tbl_extend('force', { silent = true }, opts or {})
   vim.keymap.set(mode, lhs, rhs, merged)
 end
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- option toggles
-map('n', '<M-w>', [[:set wrap!<CR>]], { desc = 'Toggle wrap' })
-map('n', '<M-q>', [[:set list!<CR>]], { desc = 'Toggle listchars' })
-map('n', '<M-e>', [[:set hlsearch!<CR>]], { desc = 'Toggle search highlights' })
+-- stylua: ignore start
+map('n', '<M-q>', [[:setlocal list!<CR>]], { desc = 'Toggle hidden characters' })
+map('n', '<M-w>', [[:setlocal wrap!<CR>]], { desc = 'Toggle word wrap' })
+map('n', '<M-e>', [[:setlocal hlsearch!<CR>]], { desc = 'Toggle search highlights' })
+-- stylua: ignore end
 
--- navigation
-map('n', '<leader>e', [[:Explore<CR>]], { desc = 'Netrw' })
-
-map('n', '<C-d>', [[<C-d>zz]], { desc = 'Scroll down' })
-map('n', '<C-u>', [[<C-u>zz]], { desc = 'Scroll up' })
-map('n', 'n', [[nzzzv]], { desc = 'Repeat search' })
-map('n', 'N', [[Nzzzv]], { desc = 'Repeat search backwards' })
-
+map('n', '<M-j>', [[:lnext<CR>]], { desc = 'Next location item' })
+map('n', '<M-k>', [[:lprev<CR>]], { desc = 'Previous location item' })
 map('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next quickfix item' })
 map('n', '<C-k>', [[:cprev<CR>]], { desc = 'Previous quickfix item' })
-map('n', '<C-M-j>', [[:lnext<CR>]], { desc = 'Next location item' })
-map('n', '<C-M-k>', [[:lprev<CR>]], { desc = 'Previous location item' })
-
--- convenience (the truth is idk where to put those)
-map('i', '<C-c>', [[<esc>]], { desc = 'Escape' })
-map('n', '<leader>v', '`[v`]', { desc = 'Select last yanked/changed text' })
-
--- search/replace
-map('n', '<M-d>', [[*Ncgn]], { desc = 'Change word with *' })
-map('v', '<M-d>', [[*Ncgn]], { desc = 'Change selection with *', remap = true })
-
--- linewise
-map('n', 'J', [[mjJ`j]], { desc = 'Join lines' })
-
-map('n', '<M-j>', [[:m .+1<CR>==]], { desc = 'Move line down' })
-map('n', '<M-k>', [[:m .-2<CR>==]], { desc = 'Move line up' })
-map('v', '<M-j>', [[:m '>+1<CR>gv=gv]], { desc = 'Move lines down' })
-map('v', '<M-k>', [[:m '<-2<CR>gv=gv]], { desc = 'Move lines up' })
-
-map('n', '<M-J>', [[:co .<CR>]], { desc = 'Copy line down' })
-map('n', '<M-K>', [[:co .-1<CR>]], { desc = 'Copy line up' })
-map('v', '<M-J>', [[:co '<-1<CR>gv]], { desc = 'Copy lines down' })
-map('v', '<M-K>', [[:co '><CR>gv]], { desc = 'Copy lines up' })
 
 map('v', '>', [[>gv]], { desc = 'Indent' })
 map('v', '<', [[<gv]], { desc = 'Outdent' })
 
 -- stylua: ignore
--- filewise
-map('n', '<leader>x', [[mx:%s/\s\+$//e<CR>`x]], { desc = 'Trim trailing whitespaces' })
+map('n', '<leader>x', [[:%s/\s\+$//e<CR>]], { desc = 'Trim trailing whitespaces' })
+map('n', '<leader>v', '`[v`]', { desc = 'Select last changed or yanked text' })
+map('i', '<C-c>', [[<esc>]], { desc = 'Escape' })
 
--- system clipboard
-map('n', '<leader>yy', [["+yy]], { desc = 'Yank to "+' })
-map('v', '<leader>y', [["+y]], { desc = 'Yank to "+' })
+map('n', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
+map('n', '<leader>yy', [["+yy]], { desc = 'Yank to system clipboard' })
+map('v', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
+map('n', '<leader>p', [["+p]], { desc = 'Put from system clipboard' })
+map('n', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
+map('v', '<leader>p', [["+p]], { desc = 'Put from system clipboard' })
+map('v', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
 
-map('n', '<leader>p', [["+p]], { desc = 'Put from "+' })
-map('n', '<leader>P', [["+P]], { desc = 'Put from "+' })
-map('v', '<leader>p', [["+p]], { desc = 'Put from "+' })
-map('v', '<leader>P', [["+P]], { desc = 'Put from "+' })
+-- stylua: ignore start
+map('n', '<C-up>', [[:resize -2<CR>]], { desc = 'Decrease window height' })
+map('n', '<C-down>', [[:resize +2<CR>]], { desc = 'Increase window height' })
+map('n', '<C-left>', [[:vert resize -2<CR>]], { desc = 'Decrease window width' })
+map('n', '<C-right>', [[:vert resize +2<CR>]], { desc = 'Increase window width' })
+-- stylua: ignore end
 
--- window
-map('n', '<C-up>', [[:resize -2<CR>]], { desc = 'Resize up' })
-map('n', '<C-down>', [[:resize +2<CR>]], { desc = 'Resize down' })
-map('n', '<C-left>', [[:vert resize -2<CR>]], { desc = 'Resize left' })
-map('n', '<C-right>', [[:vert resize +2<CR>]], { desc = 'Resize right' })
+map('n', '<leader>e', [[:Explore<CR>]], { desc = 'Netrw' })
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Map keys for Netrw buffers',
+  group = vim.api.nvim_create_augroup('config_netrw_keymaps', {}),
+  pattern = 'netrw',
+  callback = function(args)
+    -- stylua: ignore start
+    map('n', 'h', [[-]], { desc = 'Go to parent directory', buffer = args.buf, remap = true })
+    map('n', 'l', [[<CR>]], { desc = 'Open file', buffer = args.buf, remap = true })
+    -- stylua: ignore end
+  end,
+})
