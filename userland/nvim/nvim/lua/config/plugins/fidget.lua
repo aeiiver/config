@@ -4,7 +4,6 @@ return {
     branch = 'legacy',
     opts = {
       window = {
-        relative = 'win',
         blend = 0,
       },
     },

@@ -5,11 +5,11 @@ end
 
 local function setup_lspconfig()
   -- stylua: ignore start
-  vim.keymap.set('n', '<leader>gl', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Next diagnostic' })
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Previous diagnostic' })
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Find buffer diagnostics' })
+  vim.keymap.set('n', '<leader>ll', vim.diagnostic.open_float, { desc = 'Show diagnostic message' })
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Next diagnostic message' })
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Previous diagnostic message' })
   vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist, { desc = 'Find workspace diagnostics' })
+  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Find buffer diagnostics' })
   -- stylua: ignore end
 
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -34,7 +34,7 @@ local function setup_lspconfig()
       map('n', 'K', vim.lsp.buf.hover, { desc = 'Show hover details' })
       map('i', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature help' })
       map('n', '<leader>r', vim.lsp.buf.rename, { desc = 'Rename symbol' })
-      map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code actions' })
+      map({ 'n', 'v' }, '<leader>c', vim.lsp.buf.code_action, { desc = 'Code actions' })
       map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
       map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
       map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { desc = 'Remove workspace folder' })
@@ -77,6 +77,7 @@ local function setup_completion()
 
   local cmp = require('cmp')
   local luasnip = require('luasnip')
+  require('luasnip.loaders.from_vscode').lazy_load()
 
   cmp.setup({
     completion = { autocomplete = false },
@@ -87,12 +88,17 @@ local function setup_completion()
     },
     sources = {
       { name = 'nvim_lsp' },
+      { name = 'luasnip' },
       { name = 'buffer' },
       { name = 'path' },
-      { name = 'luasnip' },
     },
     mapping = {
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-d>'] = cmp.mapping.scroll_docs(4),
+      ['<CR>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      }),
 
       ['<C-Space>'] = cmp.mapping(function()
         if cmp.visible() then
@@ -101,9 +107,6 @@ local function setup_completion()
           cmp.complete()
         end
       end),
-
-      ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-d>'] = cmp.mapping.scroll_docs(4),
 
       ['<C-n>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -122,7 +125,7 @@ local function setup_completion()
       end, { 'i', 's' }),
 
       ['<Tab>'] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
+        if luasnip.expand_or_locally_jumpable() then
           luasnip.expand_or_jump()
         else
           fallback()
@@ -130,7 +133,7 @@ local function setup_completion()
       end, { 'i', 's' }),
 
       ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
+        if luasnip.locally_jumpable(-1) then
           luasnip.jump(-1)
         else
           fallback()
@@ -144,14 +147,15 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'L3MON4D3/LuaSnip' },
-      { 'saadparwaiz1/cmp_luasnip' },
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
+      'saadparwaiz1/cmp_luasnip',
     },
     config = function()
       setup_mason()
