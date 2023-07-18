@@ -62,6 +62,13 @@ local function setup_lspconfig()
 end
 
 local function setup_completion()
+  require('lsp_signature').setup({
+    floating_window = false,
+    hint_prefix = '',
+    toggle_key = '<C-k>',
+    select_signature_key = '<C-M-h>'
+  })
+
   local lspconfig = require('lspconfig')
   local servers = require('mason-lspconfig').get_installed_servers()
   local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -156,6 +163,7 @@ return {
       'L3MON4D3/LuaSnip',
       'rafamadriz/friendly-snippets',
       'saadparwaiz1/cmp_luasnip',
+      'ray-x/lsp_signature.nvim',
     },
     config = function()
       setup_mason()
