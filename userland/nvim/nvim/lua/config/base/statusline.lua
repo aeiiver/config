@@ -8,10 +8,10 @@ local function git_branch()
   proc:close()
 
   local branch = stdout:match('^(.+)%s+')
-  if branch ~= '' then
-    vim.g.config_git_branch = '(' .. branch .. ')'
-  else
+  if branch == nil then
     vim.g.config_git_branch = ''
+  else
+    vim.g.config_git_branch = '(' .. branch .. ')'
   end
 
   return '%{g:config_git_branch}'
