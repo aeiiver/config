@@ -1,11 +1,15 @@
-#
-# $XDG_CONFIG_HOME/git/config
-#
+;
+; $XDG_CONFIG_HOME/git/config
+;
 
-[init]
-	defaultbranch = main
-[push]
-	default = nothing
 [user]
 	name = aeiiver
 	email = 101661283+aeiiver@users.noreply.github.com
+
+[init]
+	defaultbranch = main
+
+[push]
+	default = nothing
+
+; vi: ft=gitconfig

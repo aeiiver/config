@@ -1,4 +1,5 @@
 ! https://terminal.sexy/#DgsJztPPKCgo2Wk0scpa57hda2_Wyn_QhcqwwcG6mZmV-2knyOhY-OR2bXL744DSi_nQ8PDw
+
 ! special
 *.foreground:   #ced3cf
 *.background:   #0e0b09
@@ -36,4 +37,4 @@
 *.color7:       #c1c1ba
 *.color15:      #f0f0f0
 
-! vim: ft=xdefaults
+! vi: ft=xdefaults
