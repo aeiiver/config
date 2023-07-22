@@ -10,6 +10,8 @@ if [ "$HYPRGAMEMODE" = 1 ]; then
         keyword general:gaps_out 0;\
         keyword general:border_size 0;\
         keyword decoration:rounding 0"
+	notify-send "Gamemode enabled"
 	exit
 fi
 hyprctl reload
+notify-send "Gamemode disabled"

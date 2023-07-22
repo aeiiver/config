@@ -25,8 +25,10 @@ base-devel
 bash-completion
 dashbinsh
 efibootmgr
+fwupd
+udisks2
 
-# daemons
+# daemons (to enable)
 apparmor
 avahi
 chrony
@@ -88,6 +90,7 @@ dunst
 foot
 gammastep
 grim
+grimblast-git
 hyprland
 hyprpicker
 mint-l-icons
@@ -103,12 +106,15 @@ pipewire-jack
 pipewire-pulse
 playerctl
 polkit-gnome
+qt5-wayland
+qt5ct
+qt6-wayland
 slurp
-swappy
 swaybg
 swayidle
 tofi
 ttf-jetbrains-mono-nerd
+vulkan-intel
 waybar-hyprland
 waylock
 wev
