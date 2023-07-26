@@ -1,0 +1,27 @@
+border-radius=4
+text-alignment=center
+
+# fallback colors
+background-color=#333333
+text-color=#999999
+border-color=#777777
+
+[urgency="low"]
+background-color=#333333
+text-color=#999999
+border-color=#777777
+default-timeout=10000
+
+[urgency="normal"]
+background-color=#424242
+text-color=#ccffff
+border-color=#777777
+default-timeout=20000
+
+[urgency="critical"]
+background-color=#694242
+text-color=#ffffff
+border-color=#cc6666
+default-timeout=0
+
+# vi: ft=cfg
