@@ -57,10 +57,11 @@ else
 	sudo pacman -S --needed --noconfirm stow
 fi
 
-sed -n '/^# graphical environment$/,/^$/p' README.md | sort | sed '1,/#/d' | "$AUR_HELPER" -S --needed -
+sed 's/\s*#.*//; /^$/d' pkglist.desktop | "$AUR_HELPER" -S --needed -
 
 (
 	cd graphical || printf 'cd failed' && exit 1
 	stow ./*
 ) || printf 'stow: failed to symlink' && exit 1
+
 bemoji -D all

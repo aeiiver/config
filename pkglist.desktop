@@ -1,40 +1,40 @@
-batsignal
-bemoji
-brightnessctl
-copyq
-foot
-gammastep
-grim
-grimblast-git
-hyprland
-hyprpicker
-ksnip
-mako
-mint-l-icons
-mint-l-theme
-network-manager-applet
-noto-fonts
-noto-fonts-cjk
-noto-fonts-emoji
-pavucontrol
-pipewire
-pipewire-alsa
-pipewire-jack
-pipewire-pulse
-playerctl
-polkit-gnome
-qt5-wayland
-qt5ct
-qt6-wayland
-slurp
-swaybg
-swayidle
-tofi
-ttf-jetbrains-mono-nerd
-vulkan-intel
-waybar-hyprland
-waylock
-wireplumber
-wl-clipboard
-xdg-desktop-portal-gtk
-xdg-desktop-portal-hyprland
+# vi: ft=sh
+batsignal                   # :hypr
+bemoji                      # :hypr
+brightnessctl               # :hypr
+copyq                       # :hypr
+foot                        # :foot :hypr
+gammastep                   # :hypr
+grim                        # DEP:xdg-desktop-portal-hyprland
+grimblast-git               # :hypr
+hyprland                    # :hypr
+hyprpicker                  # :hypr
+ksnip                       # :hypr
+mako                        # :mako NOTE:notification daemon
+mint-l-icons                # :lookandfeel
+mint-l-theme                # :lookandfeel
+network-manager-applet      # :hypr
+noto-fonts                  # :fontconfig
+noto-fonts-cjk              # DEP:noto-fonts
+noto-fonts-emoji            # DEP:noto-fonts
+pavucontrol                 # :waybar
+pipewire                    # NOTE:sound server
+pipewire-alsa               # DEP:pipewire
+pipewire-jack               # DEP:pipewire
+pipewire-pulse              # DEP:pipewire
+playerctl                   # :hypr DEP:waybar-hyprland
+polkit-gnome                # :hypr NOTE:authentification agent
+qt5-wayland                 # NOTE:Qt support
+qt5ct                       # :hypr
+qt6-wayland                 # NOTE:Qt support
+slurp                       # DEP:xdg-desktop-portal-hyprland
+swaybg                      # :hypr
+swayidle                    # :hypr
+tofi                        # :hypr :tofi
+ttf-jetbrains-mono-nerd     # :fontconfig
+waybar-hyprland             # :hypr :waybar
+waylock                     # :hypr
+wireplumber                 # DEP:pipewire
+wl-clipboard                # NOTE:provide a clipboard
+xdg-desktop-portal          # NOTE:handle desktop portal requests
+xdg-desktop-portal-hyprland # :hypr DEP:xdg-desktop-portal
