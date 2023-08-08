@@ -1,0 +1,14 @@
+# completion
+set mark-symlinked-directories on
+set match-hidden-files off
+set show-all-if-unmodified on
+set skip-completed-text on
+
+# completion: visual cues
+set colored-completion-prefix on
+set colored-stats on
+set visible-stats on
+
+# misc
+set bell-style none
+set echo-control-characters off
