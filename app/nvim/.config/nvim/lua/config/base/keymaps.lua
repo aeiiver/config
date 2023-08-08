@@ -25,6 +25,7 @@ map('n', '<leader>x', [[:%s/\s\+$//e<CR>]], { desc = 'Trim trailing whitespaces'
 map('n', '<leader>d', [[*Ncgn]], { desc = 'Change word with *' })
 map('v', '<leader>d', [[*Ncgn]], { desc = 'Change selection with *', remap = true })
 map('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], { desc = 'Substitute', silent = false })
+map('v', '<leader>s', [[y:%s/\<<C-r>"\>/<C-r>"/gI<left><left><left>]], { desc = 'Substitute', silent = false })
 map('n', '<leader>v', '`[v`]', { desc = 'Select last changed or yanked text' })
 map('i', '<C-c>', [[<esc>]], { desc = 'Escape' })
 
