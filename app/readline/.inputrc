@@ -1,8 +1,11 @@
 # completion
 set mark-symlinked-directories on
 set match-hidden-files off
-set show-all-if-unmodified on
+set show-all-if-ambiguous on
 set skip-completed-text on
+
+"C-i": menu-complete
+"\e[Z": menu-complete-backward
 
 # completion: visual cues
 set colored-completion-prefix on
