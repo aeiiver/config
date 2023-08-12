@@ -6,6 +6,7 @@ dos2unix
 dragon-drop
 epson-inkjet-printer-escpr
 expac
+fd
 flatpak
 fzf
 git
@@ -23,6 +24,7 @@ mpv
 neovim
 nnn
 opendoas
+ripgrep
 rsync
 shellcheck
 shfmt
