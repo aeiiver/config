@@ -5,9 +5,17 @@ if [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
 	exit 1
 fi
 
-conflicted=$(hyprctl binds -j | jq '.[] | @text "\(.modmask) \(.key)"' | uniq -d)
-if [ -z "$conflicted" ]; then
-    echo 'No bind conflict was found'
+conflicts=$(
+	hyprctl binds -j |
+		jq -r 'sort_by(.modmask, .key)[]
+		           | @text "\(.modmask) \(
+			       if .key == "" then .keycode
+	                       else .key
+			       end)"' |
+		uniq -d
+)
+if [ -z "$conflicts" ]; then
+	echo 'No bind conflict was found'
 else
-    echo "$conflicted"
+	echo "$conflicts"
 fi
