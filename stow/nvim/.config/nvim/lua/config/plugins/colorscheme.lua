@@ -3,7 +3,7 @@ return {
     'savq/melange-nvim',
     dependencies = { 'rktjmp/lush.nvim' },
     lazy = false,
-    priority = 6942,
+    priority = 10000,
     config = function()
       vim.opt.termguicolors = true
       vim.cmd.colorscheme('melange')
