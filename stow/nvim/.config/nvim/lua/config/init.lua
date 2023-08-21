@@ -53,9 +53,19 @@ local function map_keys()
     vim.ui.input({ prompt = 'Command: ' }, function(input)
       if input ~= nil then
         vim.cmd('ter ' .. input)
+        vim.api.nvim_create_autocmd('TermClose', {
+          desc = 'Map quit buffer key for the custom terminal command',
+          group = vim.api.nvim_create_augroup('config_custom_terminal_keymap', {}),
+          buffer = 0,
+          callback = function(args)
+            map('n', 'q', [[i<CR>]], { desc = 'Quit', buffer = args.buf })
+          end,
+        })
       end
     end)
   end, { desc = 'Run external command' })
+
+  map('v', '<leader>a', [[!column -to ' '<CR>]], { desc = 'Align' })
 
   map('n', '<leader>e', function()
     if not pcall(vim.cmd.Rexplore) then
