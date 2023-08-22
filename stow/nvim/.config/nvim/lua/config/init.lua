@@ -41,6 +41,7 @@ local function map_keys()
   map('v', '<leader>s', [[y:%s/\<<C-r>"\>/<C-r>"/gI<left><left><left>]], { desc = 'Substitute', silent = false })
   map('n', '<leader>v', '`[v`]', { desc = 'Select last changed or yanked text' })
   map('n', '<leader>x', [[:%s/\s\+$//e<CR>]], { desc = 'Trim trailing whitespaces' })
+  map({'n', 'i', 'v', 'c'}, '<C-c>', [[<esc>]], { desc = 'Escape' })
 
   map('n', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
   map('v', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
