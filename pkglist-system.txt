@@ -6,6 +6,7 @@ chrony
 cups
 cups-pdf
 efibootmgr
+expac
 fwupd
 intel-ucode
 linux-firmware

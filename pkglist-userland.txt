@@ -1,11 +1,8 @@
 bash-completion
 dashbinsh
-docker
-docker-compose
 dos2unix
 dragon-drop
 epson-inkjet-printer-escpr
-expac
 fd
 flatpak
 fzf
@@ -15,7 +12,6 @@ hyperfine
 imagemagick
 jq
 lazygit
-lsof
 lynx
 man-db
 man-pages
@@ -24,6 +20,8 @@ mpv
 neovim
 nnn
 opendoas
+perl-file-mimeinfo
+perl-image-exiftool
 ripgrep
 rsync
 shellcheck
@@ -32,6 +30,6 @@ stow
 tagutil
 tmux
 trash-cli
-wev
+wget
 yay
 yt-dlp
