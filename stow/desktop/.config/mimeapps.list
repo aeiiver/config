@@ -3,7 +3,7 @@
 [Default Applications]
 application/pdf=io.gitlab.librewolf-community.desktop;
 image/*=imv.desktop;
-inode/directory=nnn.desktop;imv.desktop;
+inode/directory=nnn.desktop;imv.desktop;pcmanfm.desktop;
 text/*=nvim.desktop;
 video/*=mpv.desktop;
 x-scheme-handler/http=io.gitlab.librewolf-community.desktop;

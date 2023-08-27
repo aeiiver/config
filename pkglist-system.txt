@@ -13,6 +13,7 @@ linux-firmware
 linux-lts
 lostfiles
 networkmanager
+nss-mdns
 pacman-contrib
 pacutils
 reflector
