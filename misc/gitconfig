@@ -1,6 +1,4 @@
-;
-; $XDG_CONFIG_HOME/git/config
-;
+; Location: $XDG_CONFIG_HOME/git/config
 
 [user]
 	name = aeiiver
