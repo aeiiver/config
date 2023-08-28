@@ -1,3 +1,5 @@
+PREFIX := $(HOME)/.local
+
 OUT_DIR := out
 CACHE_DIR := $(OUT_DIR)/cache
 
@@ -10,12 +12,18 @@ default: build
 build: $(OUT)
 
 clean:
-	rm $(OUT)
-
-cleanall:
 	rm -r $(OUT_DIR)
 
-.PHONY: default build clean cleanall
+clean_out:
+	rm $(OUT)
+
+install: build
+	install -vCDm 644 $(OUT) $(DESTDIR)$(PREFIX)/lib/desktop
+
+uninstall:
+	rm -v $(patsubst %,$(DESTDIR)$(PREFIX)/lib/desktop/%,$(notdir $(OUT)))
+
+.PHONY: default build clean clean_out install uninstall
 
 $(OUT): $(GLYPH_DATA)
 	mkdir -p $(OUT_DIR)

@@ -1,6 +1,8 @@
 import json
-import sys
 import re
+import sys
+
+# This script will insert emojilib keywords to the Unicode emoji list if applicable.
 
 PROGNAME, OUT_FILE, EMOJILIB_DATA, UNICODE_DATA = sys.argv
 VARIANT_SELECTOR = 0xFE0F
@@ -44,16 +46,15 @@ with open(UNICODE_DATA) as f:
         if re.search('; fully-qualified', line)
     ]
 
-# Insert emojilib keywords after each emoji if applicable
 for emoji, keywords in emojilib.items():
-    print(f'Processing {emoji}...', end=' ')
+    print(f'Processing {emoji}... ', end='')
 
     emoji = emoji.replace(chr(VARIANT_SELECTOR), '')
-    count = 0
+    occurences = 0
     for i in range(len(output)):
-        for ch in emoji:
+        for char in emoji:
             output_emoji = output[i].split(' ', 1)[0]
-            if ch not in output_emoji:
+            if char not in output_emoji:
                 break
 
         changed = re.sub(
@@ -63,9 +64,9 @@ for emoji, keywords in emojilib.items():
         )
         if changed != output[i]:
             output[i] = changed
-            count += 1
+            occurences += 1
 
-    print(f'{count} occurences replaced.')
+    print(f'{occurences} occurences replaced.')
 
 with open(OUT_FILE, mode='w') as f:
     f.write(''.join(output))
