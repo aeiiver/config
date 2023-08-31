@@ -8,11 +8,11 @@
 }
 
 window#waybar {
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: #000000;
 }
 
 tooltip {
-  background-color: rgba(12, 12, 12, 0.9);
+  background-color: #111111;
   border: 1px solid #666666;
   border-radius: 8px;
 }
@@ -46,23 +46,6 @@ widget > :not(#tray) {
 
 widget > #custom-sep {
   color: #666666;
-}
-
-/****************/
-/* Left modules */
-/****************/
-
-#disk {
-}
-
-/****************/
-
-#cpu {
-}
-
-/****************/
-
-#memory {
 }
 
 /******************/
