@@ -9,7 +9,6 @@ grim
 grimblast-git
 hyprland
 hyprpicker
-imv
 kitty
 ksnip
 mako
