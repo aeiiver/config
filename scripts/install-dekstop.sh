@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 set -e
 
 yay -S - <pkglist-desktop.txt

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 : "${XDG_CONFIG_HOME:=$HOME/.config}"
 userdirs=$XDG_CONFIG_HOME/user-dirs.dirs
