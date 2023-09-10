@@ -11,6 +11,15 @@ stty -ixon
 
 # end BASH }}}
 
+# ZSH {{{
+
+HISTFILE=~/.zsh_history
+HISTSIZE=200000
+SAVEHIST=200000
+bindkey -e
+
+# }}}
+
 # SH {{{
 
 # Environment variables
