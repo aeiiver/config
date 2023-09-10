@@ -35,13 +35,13 @@ local function map_keys()
   map('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next quickfix item' })
   map('n', '<C-k>', [[:cprev<CR>]], { desc = 'Previous quickfix item' })
 
-  map('n', '<leader>d', [[*Ncgn]], { desc = '*-substitute word', remap = true })
-  map('v', '<leader>d', [[*Ncgn]], { desc = '*-substitute selection', remap = true })
+  map('n', '<leader>d', [[*Ncgn]], { desc = 'Star-substitute word', remap = true })
+  map('v', '<leader>d', [[*Ncgn]], { desc = 'Star-substitute selection', remap = true })
   map('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], { desc = 'Substitute', silent = false })
   map('v', '<leader>s', [[y:%s/\<<C-r>"\>/<C-r>"/gI<left><left><left>]], { desc = 'Substitute', silent = false })
   map('n', '<leader>v', '`[v`]', { desc = 'Select last changed or yanked text' })
   map('n', '<leader>x', [[:%s/\s\+$//e<CR>]], { desc = 'Trim trailing whitespaces' })
-  map({'n', 'i', 'v', 'c'}, '<C-c>', [[<esc>]], { desc = 'Escape' })
+  map({ 'n', 'i', 'v', 'c' }, '<C-c>', [[<esc>]], { desc = 'Escape' })
 
   map('n', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
   map('v', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
@@ -51,7 +51,7 @@ local function map_keys()
   map('v', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
 
   map('n', '<leader>t', function()
-    vim.ui.input({ prompt = 'Command: ' }, function(input)
+    vim.ui.input({ prompt = 'External command: ' }, function(input)
       if input ~= nil then
         vim.cmd('ter ' .. input)
         vim.api.nvim_create_autocmd('TermClose', {
@@ -66,7 +66,10 @@ local function map_keys()
     end)
   end, { desc = 'Run external command' })
 
-  map('v', '<leader>a', [[!column -to ' '<CR>]], { desc = 'Align' })
+  map('n', '<leader>a', [[!!column -to ' ']], { desc = 'Columnify' })
+  map('v', '<leader>a', [[!column -to ' ']], { desc = 'Columnify' })
+  map('n', '<leader>a', [[!!column -to ' '<CR>]], { desc = 'Columnify' })
+  map('v', '<leader>a', [[!column -to ' '<CR>]], { desc = 'Columnify' })
 
   map('n', '<leader>e', function()
     if not pcall(vim.cmd.Rexplore) then
