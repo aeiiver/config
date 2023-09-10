@@ -40,6 +40,7 @@ local function map_keys()
   map('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], { desc = 'Substitute', silent = false })
   map('v', '<leader>s', [[y:%s/\<<C-r>"\>/<C-r>"/gI<left><left><left>]], { desc = 'Substitute', silent = false })
   map('n', '<leader>v', '`[v`]', { desc = 'Select last changed or yanked text' })
+  map('n', '<leader>=', '`[v`]=', { desc = 'Equal-indent last changed or yanked text' })
   map('n', '<leader>x', [[:%s/\s\+$//e<CR>]], { desc = 'Trim trailing whitespaces' })
   map({ 'n', 'i', 'v', 'c' }, '<C-c>', [[<esc>]], { desc = 'Escape' })
 
