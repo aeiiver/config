@@ -51,24 +51,10 @@ local function map_keys()
   map('n', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
   map('v', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
 
-  map('n', '<leader>t', function()
-    vim.ui.input({ prompt = 'External command: ' }, function(input)
-      if input ~= nil then
-        vim.cmd('ter ' .. input)
-        vim.api.nvim_create_autocmd('TermClose', {
-          desc = 'Map quit buffer key for the custom terminal command',
-          group = vim.api.nvim_create_augroup('config_custom_terminal_keymap', {}),
-          buffer = 0,
-          callback = function(args)
-            map('n', 'q', [[i<CR>]], { desc = 'Quit', buffer = args.buf })
-          end,
-        })
-      end
-    end)
-  end, { desc = 'Run external command' })
+  map('n', '<leader>r', [[:.-1r!]], { desc = 'Shell command (non-interactive)', silent = false })
+  map('v', '<leader>r', [[:.-1r!]], { desc = 'Shell command (non-interactive)', silent = false })
+  map('n', '<leader>t', [[:ter ]], { desc = 'Shell command', silent = false })
 
-  map('n', '<leader>a', [[!!column -to ' ']], { desc = 'Columnify' })
-  map('v', '<leader>a', [[!column -to ' ']], { desc = 'Columnify' })
   map('n', '<leader>a', [[!!column -to ' '<CR>]], { desc = 'Columnify' })
   map('v', '<leader>a', [[!column -to ' '<CR>]], { desc = 'Columnify' })
 
