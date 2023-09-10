@@ -22,6 +22,12 @@ bindkey -e
 
 # SH {{{
 
+# XDG base directories
+export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_STATE_HOME="$HOME"/.local/state
+
 # Environment variables
 export EDITOR=nvim
 export VISUAL=nvim
@@ -42,7 +48,7 @@ path_prepend() {
 	case :$PATH: in
 	*:$1:*) return ;;
 	esac
-	export PATH=$1:$PATH
+	export PATH="$1:$PATH"
 }
 source_checked() {
 	# shellcheck disable=1090
