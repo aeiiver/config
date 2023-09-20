@@ -1,10 +1,12 @@
 [Added Associations]
 
 [Default Applications]
-application/pdf=io.gitlab.librewolf-community.desktop;
+application/pdf=librewolf.desktop;firefox.desktop;
+audio/*=mpv.desktop;
 image/*=imv.desktop;
-inode/directory=nnn.desktop;imv.desktop;pcmanfm.desktop;
+inode/directory=pcmanfm.desktop;nnn.desktop;imv.desktop;
 text/*=nvim.desktop;
 video/*=mpv.desktop;
-x-scheme-handler/http=io.gitlab.librewolf-community.desktop;
-x-scheme-handler/https=io.gitlab.librewolf-community.desktop;
+x-scheme-handler/http=librewolf.desktop;firefox.desktop;
+x-scheme-handler/https=librewolf.desktop;firefox.desktop;
+x-scheme-handler/terminal=kitty.desktop;
