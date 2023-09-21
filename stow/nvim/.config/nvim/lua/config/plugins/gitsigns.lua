@@ -20,9 +20,9 @@ local function attach(bufnr)
     return '<Ignore>'
   end, { expr = true, desc = 'Previous hunk' })
 
-  map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
+  map({ 'n', 'v' }, '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
   map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Unstage last staged hunk' })
-  map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
+  map({ 'n', 'v' }, '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
   map('n', '<leader>hR', gs.reset_buffer, { desc = 'Restore file' })
   map('n', '<leader>hh', gs.preview_hunk_inline, { desc = 'Preview hunk' })
   map('n', '<leader>hb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
@@ -30,6 +30,7 @@ local function attach(bufnr)
   map('n', '<leader>hd', gs.diffthis, { desc = 'Diff' })
   map('n', '<leader>hx', gs.toggle_deleted, { desc = 'Show deleted' })
   map('n', '<leader>hq', function() gs.setqflist('all') end, { desc = 'Find all hunks' })
+  map('n', '<leader>hQ', function() gs.setloclist(0, 0) end, { desc = 'Find buffer hunks' })
   -- stylua: ignore end
 end
 
