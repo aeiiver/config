@@ -20,7 +20,7 @@ local function attach(bufnr)
     return '<Ignore>'
   end, { expr = true, desc = 'Previous hunk' })
 
-  map({ 'n', 'v' }, '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
+  map({ 'n', 'v' }, '<leader>hs', [[:Gitsigns stage_hunk<CR>]], { desc = 'Stage hunk' })
   map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Unstage last staged hunk' })
   map({ 'n', 'v' }, '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
   map('n', '<leader>hR', gs.reset_buffer, { desc = 'Restore file' })
