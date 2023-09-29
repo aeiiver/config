@@ -2,6 +2,7 @@ local function set_options()
   -- context
   vim.opt.colorcolumn = '80'
   vim.opt.cursorline = true
+  vim.opt.list = true
   vim.opt.number = true
   vim.opt.relativenumber = true
 
