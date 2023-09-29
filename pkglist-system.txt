@@ -22,3 +22,4 @@ thermald
 tlp
 ufw
 vnstat
+vte-common
