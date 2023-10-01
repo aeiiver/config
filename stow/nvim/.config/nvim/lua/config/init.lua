@@ -20,6 +20,8 @@ local function map_keys()
   vim.g.mapleader = ' '
   vim.g.maplocalleader = ' '
 
+  vim.keymap.set('n', '<M-n>', [[:bnext<CR>]], { desc = 'Next buffer' })
+  vim.keymap.set('n', '<M-p>', [[:bprev<CR>]], { desc = 'Previous buffer' })
   vim.keymap.set('n', '<M-j>', [[:lnext<CR>]], { desc = 'Next location item' })
   vim.keymap.set('n', '<M-k>', [[:lprev<CR>]], { desc = 'Previous location item' })
   vim.keymap.set('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next quickfix item' })
