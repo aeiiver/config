@@ -10,7 +10,6 @@ fzf
 git
 gopass
 gvfs
-handlr
 htop
 imagemagick
 imv
