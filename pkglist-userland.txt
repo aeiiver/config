@@ -8,7 +8,6 @@ ffmpegthumbnailer
 flatpak
 fzf
 git
-gopass
 gvfs
 htop
 imagemagick
@@ -25,8 +24,6 @@ mpv
 neovim
 nnn
 opendoas
-pandoc-cli
-pcmanfm-gtk3
 perl-file-mimeinfo
 perl-image-exiftool
 rfc
