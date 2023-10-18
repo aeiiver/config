@@ -41,11 +41,7 @@ local function map_keys()
   vim.keymap.set('n', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
   vim.keymap.set('v', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
 
-  vim.keymap.set('n', '<leader>e', function()
-    if not pcall(vim.cmd.Rexplore) then
-      vim.cmd.Explore()
-    end
-  end, { desc = 'Netrw' })
+  vim.keymap.set('n', '<leader>e', [[:e %:h<CR>]], { desc = 'Netrw' })
 
   vim.api.nvim_create_autocmd('FileType', {
     desc = 'Map keys for Netrw buffers',
@@ -83,12 +79,12 @@ local function load_plugins()
   require('lazy').setup('config.plugins')
 end
 
-local function setup()
+local M = {}
+
+M.setup = function()
   set_options()
   map_keys()
   load_plugins()
 end
 
-return {
-  setup = setup,
-}
+return M

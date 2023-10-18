@@ -3,18 +3,20 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local b = require('telescope.builtin')
-      local function grep_string()
-        b.grep_string({ search = vim.fn.input('grep: ') })
-      end
+      local bu = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>ff', bu.find_files, { desc = 'Find files' })
+      vim.keymap.set('n', '<leader>fg', bu.live_grep, { desc = 'Live grep' })
+      vim.keymap.set('n', '<leader>fh', bu.help_tags, { desc = 'Help tags' })
+      vim.keymap.set('n', '<leader>fc', bu.builtin, { desc = 'Telescope' })
 
-      vim.keymap.set('n', '<leader>ff', b.find_files, { desc = 'Find files' })
-      vim.keymap.set('n', '<leader>fg', grep_string, { desc = 'Grep string' })
-      vim.keymap.set('n', '<leader>fG', b.live_grep, { desc = 'Live grep' })
-      vim.keymap.set('n', '<leader>fb', b.buffers, { desc = 'Buffers' })
-      vim.keymap.set('n', '<leader>fh', b.help_tags, { desc = 'Help tags' })
-      vim.keymap.set('n', '<leader>fc', b.builtin, { desc = 'Telescope' })
-      vim.keymap.set('n', '<leader>fm', b.man_pages, { desc = 'Man pages' })
+      local ac = require('telescope.actions')
+      require('telescope').setup({
+        defaults = {
+          mappings = {
+            i = { ['<esc>'] = ac.close },
+          },
+        },
+      })
     end,
   },
 }

@@ -1,7 +1,6 @@
 return {
   {
     'savq/melange-nvim',
-    dependencies = { 'rktjmp/lush.nvim' },
     lazy = false,
     priority = 10000,
     config = function()
