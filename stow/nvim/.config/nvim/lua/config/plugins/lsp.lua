@@ -84,20 +84,6 @@ local function prepare_cmp()
       end, { 'i', 's' }),
     },
   })
-
-  cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' },
-    },
-  })
-
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'path' },
-    },
-  })
 end
 
 local function setup_lsp()
