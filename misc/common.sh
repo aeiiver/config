@@ -1,5 +1,5 @@
-# vi: foldmethod=marker
-
+### Shell-specific
+#
 case "$SHELL" in
 */bash)
 	HISTSIZE=200000
@@ -19,15 +19,20 @@ esac
 
 ### XDG base directories
 #
-export XDG_CACHE_HOME="$HOME"/.cache
-export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_DATA_HOME="$HOME"/.local/share
-export XDG_STATE_HOME="$HOME"/.local/state
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 ### Preferred applications
 #
-export EDITOR=nvim
-export VISUAL=nvim
+for ed in nvim vim vi nano; do
+	if command -v "$ed" 1>/dev/null 2>&1; then
+		export EDITOR="$ed"
+		break
+	fi
+done
+export VISUAL=$EDITOR
 export PAGER='less -R --use-color'
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
 export MANROFFOPT='-P -c'
@@ -41,11 +46,15 @@ alias grep='command grep --color=auto'
 alias diff='command diff --color=auto'
 alias ip='command ip --color=auto'
 
-### Utilities
+### Utility functions
 #
 path_prepend() {
-	if [ ! -d "$1" ] || [ ! -r "$1" ]; then
-		echo "path_prepend: '$1' can't be read"
+	if [ ! -d "$1" ]; then
+		echo "ERROR: path_prepend: Not a directory: $1"
+		return 1
+	fi
+	if [ ! -r "$1" ]; then
+		echo "ERROR: path_prepend: Read permission denied: $1"
 		return 1
 	fi
 	case :$PATH: in
@@ -55,8 +64,12 @@ path_prepend() {
 }
 
 path_append() {
-	if [ ! -d "$1" ] || [ ! -r "$1" ]; then
-		echo "path_append: '$1' can't be read"
+	if [ ! -d "$1" ]; then
+		echo "ERROR: path_prepend: Not a directory: $1"
+		return 1
+	fi
+	if [ ! -r "$1" ]; then
+		echo "ERROR: path_prepend: Read permission denied: $1"
 		return 1
 	fi
 	case :$PATH: in
