@@ -8,9 +8,13 @@ local lua_ls = {
         globals = { 'vim' },
       },
       workspace = {
+        checkThirdParty = false,
         library = {
           vim.env.VIMRUNTIME,
         },
+      },
+      telemetry = {
+        enable = false,
       },
     },
   },
