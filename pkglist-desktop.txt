@@ -5,6 +5,7 @@ breeze-gtk
 brightnessctl
 copyq
 gammastep
+glfw-wayland
 grim
 grimblast-git
 handlr
@@ -33,7 +34,7 @@ swaybg
 swayidle
 tofi
 ttf-jetbrains-mono-nerd
-waybar-hyprland-git
+waybar-hyprland
 waylock
 wireplumber
 wl-clipboard

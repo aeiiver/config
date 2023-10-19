@@ -4,7 +4,7 @@
 application/pdf=librewolf.desktop;firefox.desktop;
 audio/*=mpv.desktop;
 image/*=imv.desktop;
-inode/directory=pcmanfm.desktop;nnn.desktop;imv.desktop;
+inode/directory=pcmanfm.desktop;nemo.desktop;nnn.desktop;imv.desktop;
 text/*=nvim.desktop;
 video/*=mpv.desktop;
 x-scheme-handler/http=librewolf.desktop;firefox.desktop;
