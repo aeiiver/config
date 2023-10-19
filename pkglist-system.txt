@@ -5,6 +5,7 @@ base-devel
 chrony
 cups
 cups-pdf
+earlyoom
 efibootmgr
 expac
 fwupd
