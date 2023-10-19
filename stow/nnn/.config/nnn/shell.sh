@@ -1,5 +1,8 @@
 # shellcheck shell=sh
 
+# Source this file:
+#     . ~/.config/nnn/shell.sh
+
 command -v trash-list >/dev/null && export NNN_TRASH=1
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_PLUG='k:preview-tui'
