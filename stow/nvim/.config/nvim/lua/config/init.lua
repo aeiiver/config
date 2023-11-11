@@ -41,7 +41,7 @@ local function map_keys()
   vim.keymap.set('n', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
   vim.keymap.set('v', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
 
-  vim.keymap.set('n', '<leader>e', [[:e %:h<CR>]], { desc = 'Netrw' })
+  vim.keymap.set('n', '<leader>e', [[:Ex<CR>]], { desc = 'Netrw' })
 
   vim.api.nvim_create_autocmd('FileType', {
     desc = 'Map keys for Netrw buffers',
