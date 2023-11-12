@@ -2,16 +2,18 @@
 #
 case "$SHELL" in
 */bash)
-	HISTSIZE=200000
+	HISTSIZE=4269
+	HISTFILESIZE=42690
 	HISTCONTROL=ignoredups
 	HISTTIMEFORMAT='%F %T  '
 	shopt -s histappend
 	shopt -s hostcomplete
+	shopt -s checkwinsize
 	stty -ixon
 	;;
 */zsh)
-	HISTSIZE=200000
-	SAVEHIST=200000
+	HISTSIZE=4269
+	SAVEHIST=42690
 	HISTFILE=~/.zsh_history
 	bindkey -e
 	;;
@@ -19,10 +21,10 @@ esac
 
 ### XDG base directories
 #
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_STATE_HOME="$HOME"/.local/state
 
 ### Preferred applications
 #
