@@ -4,17 +4,16 @@ case "$SHELL" in
 */bash)
 	HISTSIZE=4269
 	HISTFILESIZE=42690
+	HISTFILE=$XDG_STATE_HOME/bash/history
 	HISTCONTROL=ignoredups
 	HISTTIMEFORMAT='%F %T  '
 	shopt -s histappend
-	shopt -s hostcomplete
-	shopt -s checkwinsize
 	stty -ixon
 	;;
 */zsh)
 	HISTSIZE=4269
 	SAVEHIST=42690
-	HISTFILE=~/.zsh_history
+	HISTFILE=~/$XDG_STATE_HOME/zsh/history
 	bindkey -e
 	;;
 esac
@@ -34,6 +33,7 @@ for ed in nvim vim vi nano; do
 		break
 	fi
 done
+[ -z "$EDITOR" ] && echo "common.sh: WARNING: couldn't find EDITOR"
 export VISUAL=$EDITOR
 export PAGER='less -R --use-color'
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
@@ -84,3 +84,5 @@ source_checked() {
 	# shellcheck disable=1090
 	[ -f "$1" ] && [ -r "$1" ] && . "$1"
 }
+
+# vi: ft=sh
