@@ -22,6 +22,8 @@ local function map_keys()
 
   vim.keymap.set('n', '<M-n>', [[:bnext<CR>]], { desc = 'Next buffer' })
   vim.keymap.set('n', '<M-p>', [[:bprev<CR>]], { desc = 'Previous buffer' })
+  vim.keymap.set('n', '<C-M-n>', [[gt]], { desc = 'Next tab' })
+  vim.keymap.set('n', '<C-M-p>', [[gT]], { desc = 'Previous tab' })
   vim.keymap.set('n', '<M-j>', [[:lnext<CR>]], { desc = 'Next location item' })
   vim.keymap.set('n', '<M-k>', [[:lprev<CR>]], { desc = 'Previous location item' })
   vim.keymap.set('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next quickfix item' })
@@ -81,7 +83,7 @@ end
 
 local M = {}
 
-M.setup = function()
+function M.setup()
   set_options()
   map_keys()
   load_plugins()
