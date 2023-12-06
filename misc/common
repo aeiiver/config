@@ -1,43 +1,22 @@
-### Shell-specific
-#
-case "$SHELL" in
-*/bash)
-	HISTSIZE=4269
-	HISTFILESIZE=42690
-	HISTFILE=$XDG_STATE_HOME/bash/history
-	HISTCONTROL=ignoredups
-	HISTTIMEFORMAT='%F %T  '
-	shopt -s histappend
-	stty -ixon
-	;;
-*/zsh)
-	HISTSIZE=4269
-	SAVEHIST=42690
-	HISTFILE=~/$XDG_STATE_HOME/zsh/history
-	bindkey -e
-	;;
-esac
-
 ### XDG base directories
 #
-export XDG_CACHE_HOME="$HOME"/.cache
-export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_DATA_HOME="$HOME"/.local/share
-export XDG_STATE_HOME="$HOME"/.local/state
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 ### Preferred applications
 #
 for ed in nvim vim vi nano; do
-	if command -v "$ed" 1>/dev/null 2>&1; then
-		export EDITOR="$ed"
+	if command -v $ed 1>/dev/null 2>&1; then
+		export EDITOR=$ed
 		break
 	fi
 done
-[ -z "$EDITOR" ] && echo "common.sh: WARNING: couldn't find EDITOR"
+[ -z "$EDITOR" ] && echo "common.sh: WARNING: couldn't set EDITOR"
 export VISUAL=$EDITOR
 export PAGER='less -R --use-color'
 export MANPAGER='less -R --use-color -Dd+c -Du+y'
-export MANROFFOPT='-P -c'
 
 ### Aliases
 #
@@ -48,16 +27,22 @@ alias grep='command grep --color=auto'
 alias diff='command diff --color=auto'
 alias ip='command ip --color=auto'
 
-### Utility functions
+### Utility
 #
 path_prepend() {
-	if [ ! -d "$1" ]; then
-		echo "ERROR: path_prepend: Not a directory: $1"
+	if [ -z "$1" ]; then
+		echo "path_prepend: Usage: path_prepend directory"
 		return 1
 	fi
-	if [ ! -r "$1" ]; then
-		echo "ERROR: path_prepend: Read permission denied: $1"
-		return 1
+	if [ -z "$2" ]; then
+		if [ ! -d "$1" ]; then
+			echo "path_prepend: ERROR: Not a directory: $1"
+			return 1
+		fi
+		if [ ! -r "$1" ]; then
+			echo "path_prepend: ERROR: Permission denied: $1"
+			return 1
+		fi
 	fi
 	case :$PATH: in
 	*:$1:*) return ;;
@@ -66,13 +51,19 @@ path_prepend() {
 }
 
 path_append() {
-	if [ ! -d "$1" ]; then
-		echo "ERROR: path_prepend: Not a directory: $1"
+	if [ -z "$1" ]; then
+		echo "path_append: Usage: path_append directory"
 		return 1
 	fi
-	if [ ! -r "$1" ]; then
-		echo "ERROR: path_prepend: Read permission denied: $1"
-		return 1
+	if [ -z "$2" ]; then
+		if [ ! -d "$1" ]; then
+			echo "path_append: ERROR: Not a directory: $1"
+			return 1
+		fi
+		if [ ! -r "$1" ]; then
+			echo "path_append: ERROR: Permission denied: $1"
+			return 1
+		fi
 	fi
 	case :$PATH: in
 	*:$1:*) return ;;
@@ -81,8 +72,32 @@ path_append() {
 }
 
 source_checked() {
+	if [ -z "$1" ]; then
+		echo "source_checked: Usage: source_checked script"
+		return 1
+	fi
 	# shellcheck disable=1090
 	[ -f "$1" ] && [ -r "$1" ] && . "$1"
 }
+
+### Shell-specific
+#
+case "$SHELL" in
+*/bash)
+	HISTSIZE=4269
+	HISTFILESIZE=42690
+	HISTCONTROL=ignoredups
+	HISTTIMEFORMAT='%F %T  '
+	shopt -s histappend
+	shopt -s checkwinsize
+	stty -ixon
+	;;
+*/zsh)
+	HISTSIZE=4269
+	SAVEHIST=42690
+	HISTFILE=~/.zsh_history
+	bindkey -e
+	;;
+esac
 
 # vi: ft=sh
