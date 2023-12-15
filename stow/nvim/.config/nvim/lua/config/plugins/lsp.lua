@@ -128,7 +128,7 @@ local function map_keys()
 
   vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'Map LSP keys',
-    group = vim.api.nvim_create_augroup('config_lspconfig_keymaps', {}),
+    group = vim.api.nvim_create_augroup('config_lsp_keymaps', {}),
     callback = function(args)
       local function map(mode, lhs, rhs, opts)
         local options = opts or {}

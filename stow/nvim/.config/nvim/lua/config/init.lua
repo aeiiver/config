@@ -1,4 +1,4 @@
-local function set_options()
+local function opts()
   -- context
   vim.opt.colorcolumn = '80'
   vim.opt.cursorline = true
@@ -9,33 +9,44 @@ local function set_options()
   -- indent
   vim.opt.expandtab = true
   vim.opt.shiftwidth = 4
-  vim.opt.tabstop = 4
 
   -- file
-  vim.opt.swapfile = false
   vim.opt.undofile = true
 end
 
-local function map_keys()
+local function keys()
   vim.g.mapleader = ' '
   vim.g.maplocalleader = ' '
 
-  vim.keymap.set('n', '<M-n>', [[:bnext<CR>]], { desc = 'Next buffer' })
-  vim.keymap.set('n', '<M-p>', [[:bprev<CR>]], { desc = 'Previous buffer' })
+  -- view
+
   vim.keymap.set('n', '<C-M-n>', [[gt]], { desc = 'Next tab' })
-  vim.keymap.set('n', '<C-M-p>', [[gT]], { desc = 'Previous tab' })
-  vim.keymap.set('n', '<M-j>', [[:lnext<CR>]], { desc = 'Next location item' })
-  vim.keymap.set('n', '<M-k>', [[:lprev<CR>]], { desc = 'Previous location item' })
-  vim.keymap.set('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next quickfix item' })
-  vim.keymap.set('n', '<C-k>', [[:cprev<CR>]], { desc = 'Previous quickfix item' })
+  vim.keymap.set('n', '<C-M-p>', [[gT]], { desc = 'Prev tab' })
+  vim.keymap.set('n', '<M-n>', [[:bnext<CR>]], { desc = 'Next buffer' })
+  vim.keymap.set('n', '<M-p>', [[:bprev<CR>]], { desc = 'Prev buffer' })
+  vim.keymap.set('n', '<M-j>', [[:lnext<CR>]], { desc = 'Next :ll item' })
+  vim.keymap.set('n', '<M-k>', [[:lprev<CR>]], { desc = 'Prev :ll item' })
+  vim.keymap.set('n', '<C-j>', [[:cnext<CR>]], { desc = 'Next :cc item' })
+  vim.keymap.set('n', '<C-k>', [[:cprev<CR>]], { desc = 'Prev :cc item' })
+
+  vim.keymap.set('n', '<leader>bdd', function()
+    local bufs = vim.api.nvim_list_bufs()
+    local cur = vim.api.nvim_get_current_buf()
+    for _, i in ipairs(bufs) do
+      if i ~= cur then
+        pcall(vim.api.nvim_buf_delete, i, {})
+      end
+    end
+  end, { desc = 'Delete other buffers' })
+
+  -- edit
 
   vim.keymap.set('n', '<leader>d', [[*Ncgn]], { desc = 'Star-substitute word', remap = true })
   vim.keymap.set('v', '<leader>d', [[*Ncgn]], { desc = 'Star-substitute selection', remap = true })
-
   vim.keymap.set('n', '<leader>x', [[:%s/\s\+$//e<CR><C-l>]], { desc = 'Trim trailing whitespaces', remap = true })
-  vim.keymap.set({ 'n', 'i', 'v', 'c' }, '<C-c>', [[<esc>]], { desc = 'Escape' })
 
   vim.keymap.set('n', '<leader>v', '`[v`]', { desc = 'Select last changed or yanked text' })
+
   vim.keymap.set('n', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
   vim.keymap.set('v', '<leader>y', [["+y]], { desc = 'Yank to system clipboard' })
   vim.keymap.set('n', '<leader>p', [["+p]], { desc = 'Put from system clipboard' })
@@ -43,7 +54,11 @@ local function map_keys()
   vim.keymap.set('n', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
   vim.keymap.set('v', '<leader>P', [["+P]], { desc = 'Put from system clipboard' })
 
+  -- misc
+
+  vim.keymap.set({ 'n', 'i', 'v', 'c' }, '<C-c>', [[<esc>]], { desc = 'Escape' })
   vim.keymap.set('n', '<leader>e', [[:Ex<CR>]], { desc = 'Netrw' })
+  vim.keymap.set('n', '<leader>E', [[:Tex<CR>]], { desc = 'Netrw in new tab' })
 
   vim.api.nvim_create_autocmd('FileType', {
     desc = 'Map keys for Netrw buffers',
@@ -64,7 +79,7 @@ local function map_keys()
   })
 end
 
-local function load_plugins()
+local function plugs()
   local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -84,9 +99,9 @@ end
 local M = {}
 
 function M.setup()
-  set_options()
-  map_keys()
-  load_plugins()
+  opts()
+  keys()
+  plugs()
 end
 
 return M
