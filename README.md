@@ -8,3 +8,9 @@
 [source](https://minecraft.fandom.com/wiki/Experience?file=ExcessiveExperienceOrbs.png)
 
 </div>
+
+## how
+
+```sh
+./bootstrap.sh
+```
