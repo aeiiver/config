@@ -9,6 +9,7 @@ local function opts()
   -- indent
   vim.opt.expandtab = true
   vim.opt.shiftwidth = 4
+  vim.opt.tabstop = 4
 
   -- file
   vim.opt.undofile = true
