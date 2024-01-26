@@ -1,3 +1,7 @@
 return {
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    lazy = false,
+    opts = {},
+  },
 }
