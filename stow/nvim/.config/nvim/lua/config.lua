@@ -9,7 +9,7 @@ end
 local M = {}
 
 function M.setup()
-  vim.opt.colorcolumn = '80'
+  vim.opt.colorcolumn = '79'
   vim.opt.expandtab = true
   vim.opt.shiftwidth = 4
   vim.opt.tabstop = 4
@@ -59,6 +59,9 @@ M.plugs = {
       vim.cmd.colorscheme('melange')
       vim.api.nvim_set_hl(0, 'Normal', { bg = '#080404' })
       vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#181010' })
+      vim.api.nvim_set_hl(0, 'SignColumn', { bg = '#080404' })
+      vim.api.nvim_set_hl(0, 'StatusLine', { bg = '#181010' })
+      vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#181010' })
     end,
   },
   {
@@ -98,13 +101,6 @@ M.plugs = {
         end,
       },
     },
-    keys = {
-      '<leader>ff',
-      '<leader>fs',
-      '<leader>fg',
-      '<leader>fh',
-      '<leader>fc',
-    },
     config = function()
       local builtin = require('telescope.builtin')
       map('n', '<leader>ff', builtin.find_files, 'Find files')
@@ -127,7 +123,6 @@ M.plugs = {
   },
   {
     'mbbill/undotree',
-    event = 'VeryLazy',
     config = function()
       map('n', '<leader>u', function()
         vim.cmd.UndotreeToggle()
@@ -150,12 +145,11 @@ M.plugs = {
   },
   {
     'folke/which-key.nvim',
-    event = 'CursorMoved',
-    config = function()
+    init = function()
       vim.opt.timeout = true
       vim.opt.timeoutlen = 300
-      require('which-key').setup()
     end,
+    opts = {},
   },
 
   {
@@ -171,6 +165,9 @@ M.plugs = {
             'L3MON4D3/LuaSnip',
             dependencies = { 'rafamadriz/friendly-snippets' },
             build = 'make install_jsregexp',
+            cond = function()
+              return vim.fn.executable('make') == 1
+            end,
           },
           'saadparwaiz1/cmp_luasnip',
 
