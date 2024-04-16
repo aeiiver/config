@@ -21,12 +21,6 @@ function M.setup()
   vim.keymap.set({'n', 'v'}, [[<leader>a]], [[!column -to' '<CR>]], {desc = 'Align columns'})
   vim.keymap.set({'n', 'v'}, [[<leader>y]], [["+y]],                {desc = 'Yank into system clipboard'})
 
-  vim.cmd.colorscheme('retrobox')
-  vim.api.nvim_set_hl(0, 'Normal',       {bg = '#080404'})
-  vim.api.nvim_set_hl(0, 'NormalFloat',  {bg = '#181010'})
-  vim.api.nvim_set_hl(0, 'StatusLine',   {bg = '#181010'})
-  vim.api.nvim_set_hl(0, 'StatusLineNC', {bg = '#181010'})
-
   local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
   if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
@@ -41,6 +35,18 @@ function M.setup()
   vim.opt.rtp:prepend(lazypath)
 
   require('lazy').setup({
+    {
+      'savq/melange-nvim',
+      priority = 42069,
+      config = function()
+        vim.opt.termguicolors = true
+        vim.cmd.colorscheme('melange')
+        vim.api.nvim_set_hl(0, 'Normal',       {bg = '#080404'})
+        vim.api.nvim_set_hl(0, 'NormalFloat',  {bg = '#181010'})
+        vim.api.nvim_set_hl(0, 'StatusLine',   {bg = '#181010'})
+        vim.api.nvim_set_hl(0, 'StatusLineNC', {bg = '#181010'})
+      end,
+    },
     {
       'nvim-treesitter/nvim-treesitter',
       dependencies = {'nvim-treesitter/nvim-treesitter-context'},
