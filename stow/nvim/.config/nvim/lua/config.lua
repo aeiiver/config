@@ -68,6 +68,10 @@ function M.setup()
             },
           },
         })
+        require('treesitter-context').setup({
+          enable = true,
+          max_lines = 3,
+        })
       end,
     },
 
@@ -225,8 +229,8 @@ function M.setup()
           handlers = { function(client) lspconfig[client].setup({ capabilities = caps }) end },
         })
 
-        vim.keymap.set('n', [[[d]],         vim.diagnostic.goto_next,  {desc = 'Next diagnostic'})
-        vim.keymap.set('n', [[]d]],         vim.diagnostic.goto_prev,  {desc = 'Previous diagnostic'})
+        vim.keymap.set('n', [[]d]],         vim.diagnostic.goto_next,  {desc = 'Next diagnostic'})
+        vim.keymap.set('n', [[[d]],         vim.diagnostic.goto_prev,  {desc = 'Previous diagnostic'})
         vim.keymap.set('n', [[<leader>ll]], vim.diagnostic.open_float, {desc = 'Show diagnostic'})
         vim.keymap.set('n', [[<leader>lq]], vim.diagnostic.setqflist,  {desc = 'Find workspace diagnostics'})
 
