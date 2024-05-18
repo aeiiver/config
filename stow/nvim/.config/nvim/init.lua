@@ -37,9 +37,9 @@ end, {})
 do
     local black = '#000000'
     local gray1 = '#c0c0c0'
-    local gray2 = '#909090'
-    local gray3 = '#707070'
-    local gray4 = '#585858'
+    local gray2 = '#a0a0a0'
+    local gray3 = '#808080'
+    local gray4 = '#606060'
 
     local fg     = gray1
     local fg_alt = gray2
