@@ -1,19 +1,9 @@
 ---
---- Emacs's compile command
+--- General settings
 ---
 
-vim.keymap.set('n', '<Space>m', function()
-    vim.ui.input({
-        prompt = 'Run: ',
-        default = vim.opt.makeprg:get(),
-    }, function(input)
-        if input == nil then
-            return
-        end
-        vim.opt.makeprg = input
-        vim.cmd('silent make | copen')
-    end)
-end)
+vim.opt.colorcolumn = {80}
+vim.diagnostic.config({signs = false})
 
 ---
 --- Quick `.editorconfig` edit
@@ -43,306 +33,370 @@ end, {})
 ---
 --- Colorscheme
 ---
---- Run `:au BufWritePost <buffer> so %` for hot-reloading.
 
-local black = '#000000'
-local gray1 = '#c0c0c0'
-local gray2 = '#808080'
-local gray3 = '#606060'
-local bg1 = '#080404'
-local bg2 = '#161010'
+do
+    local black = '#000000'
+    local gray1 = '#c0c0c0'
+    local gray2 = '#909090'
+    local gray3 = '#707070'
+    local gray4 = '#585858'
 
-local plus = gray3
-local delta = gray2
-local minus = gray1
+    local fg     = gray1
+    local fg_alt = gray2
+    local fg_rev = black
+    local bg     = '#080404'
+    local fg_dim = gray4
+    local bg_dim = '#161010'
 
-local hardcoded = gray2
-local userdefined = gray1
-local langdefined = gray3
-local ignorable = gray3
+    local diff_added   = gray4
+    local diff_changed = gray2
+    local diff_deleted = gray1
 
-local heading = gray2
-local link = gray2
-local raw = gray3
-local list = gray3
+    local hardcoded    = gray2
+    local userdefined  = gray1
+    local userdefined2 = gray3
+    local langdefined  = gray4
+    local ignorable    = gray4
 
-local colorscheme = {
-    -- :h highlight-default
+    local heading = gray2
+    local link    = gray2
+    local raw     = gray4
+    local list    = gray4
 
-    ['CurSearch'] = {fg = black, bg = gray1},
+    local colorscheme = {
+        -- :h highlight-default
 
-    ['CursorLine'] = {bg = bg2},
-    ['Directory']  = {fg = gray2},
-    ['DiffAdd']    = {fg = black, bg = plus},
-    ['DiffChange'] = {fg = black, bg = delta},
-    ['DiffDelete'] = {fg = black, bg = minus},
-    ['DiffText']   = {fg = black, bg = gray1},
+        ['ColorColumn']    = {bg = bg_dim},
+        ['Conceal']        = {fg = fg_dim},
+        ['CurSearch']      = {fg = fg_rev, bg = fg_dim},
+        ['Cursor']         = {link = 'CurSearch'},
+        ['lCursor']        = {link = 'CurSearch'},
+        ['CursorIM']       = {link = 'CurSearch'},
+        ['CursorColumn']   = {link = 'ColorColumn'},
+        ['CursorLine']     = {link = 'ColorColumn'},
+        ['Directory']      = {fg = fg_alt},
+        ['DiffAdd']        = {fg = fg_rev, bg = diff_added},
+        ['DiffChange']     = {fg = fg_rev, bg = diff_changed},
+        ['DiffDelete']     = {fg = fg_rev, bg = diff_deleted},
+        ['DiffText']       = {reverse = true},
+        ['EndOfBuffer']    = {link = 'Conceal'},
+        ['TermCursor']     = {link = 'CurSearch'},
+        ['TermCursorNC']   = {},
+        ['ErrorMsg']       = {fg = fg_alt},
+        ['WinSeparator']   = {link = 'Conceal'},
+        ['Folded']         = {link = 'ColorColumn'},
+        ['FoldColumn']     = {link = 'Conceal'},
+        ['SignColumn']     = {link = 'Conceal'},
+        ['IncSearch']      = {link = 'CurSearch'},
+        ['Substitute']     = {link = 'CurSearch'},
+        ['LineNr']         = {link = 'Conceal'},
+        ['LineNrAbove']    = {link = 'Conceal'},
+        ['LineNrBelow']    = {link = 'Conceal'},
+        ['CursorLineNr']   = {link = 'CursorLine'},
+        ['CursorLineFold'] = {link = 'CursorLine'},
+        ['CursorLineSign'] = {link = 'CursorLine'},
+        ['MatchParen']     = {link = 'CurSearch'},
+        ['ModeMsg']        = {link = 'ErrorMsg'},
+        ['MsgArea']        = {fg = fg},
+        ['MsgSeparator']   = {link = 'ColorColumn'},
+        ['MoreMsg']        = {link = 'ErrorMsg'},
+        ['NonText']        = {link = 'Conceal'},
+        ['Normal']         = {fg = fg, bg = bg},
+        ['NormalFloat']    = {fg = fg, bg = bg_dim},
+        ['FloatBorder']    = {link = 'NormalFloat'},
+        ['FloatTitle']     = {fg = fg, bold = true},
+        ['FloatFooter']    = {fg = fg, bold = true},
+        ['NormalNC']       = {link = 'Normal'},
+        ['Pmenu']          = {link = 'ColorColumn'},
+        ['PmenuSel']       = {link = 'CurSearch'},
+        ['PmenuKind']      = {link = 'Pmenu'},
+        ['PmenuKindSel']   = {link = 'PmenuSel'},
+        ['PmenuExtra']     = {link = 'Pmenu'},
+        ['PmenuExtraSel']  = {link = 'PmenuSel'},
+        ['PmenuSbar']      = {link = 'Pmenu'},
+        ['PmenuThumb']     = {bg = fg_dim},
+        ['Question']       = {link = 'ErrorMsg'},
+        ['QuickFixLine']   = {link = 'ErrorMsg'},
+        ['Search']         = {link = 'CurSearch'},
+        ['SnippetTabstop'] = {link = 'ColorColumn'},
+        ['SpecialKey']     = {link = 'Conceal'},
+        ['SpellBad']       = {undercurl = true},
+        ['SpellCap']       = {undercurl = true},
+        ['SpellLocal']     = {undercurl = true},
+        ['SpellRare']      = {undercurl = true},
+        ['StatusLine']     = {fg = fg, bg = bg_dim},
+        ['StatusLineNC']   = {fg = fg_dim, bg = bg_dim},
+        ['TabLine']        = {link = 'StatusLineNC'},
+        ['TabLineFill']    = {link = 'StatusLineNC'},
+        ['TabLineSel']     = {link = 'StatusLine'},
+        ['Title']          = {fg = fg, bold = true},
+        ['Visual']         = {bg = bg_dim, bold = true},
+        ['VisualNOS']      = {bg = bg_dim, bold = true},
+        ['WarningMsg']     = {link = 'ErrorMsg'},
+        ['Whitespace']     = {link = 'Conceal'},
+        ['WildMenu']       = {link = 'CurSearch'},
+        ['WinBar']         = {link = 'StatusLine'},
+        ['WinBarNC']       = {link = 'StatusLineNC'},
 
-    ['ErrorMsg'] = {fg = gray1, bold = true},
+        -- :h group-name
 
-    ['Substitute'] = {link = 'CurSearch'},
+        ['Comment'] = {link = '@comment'},
 
-    ['MatchParen'] = {link = 'CurSearch'},
-    ['ModeMsg']    = {link = 'ErrorMsg'},
+        ['Constant']  = {link = '@constant'},
+        ['String']    = {link = '@string'},
+        ['Character'] = {link = '@character'},
+        ['Number']    = {link = '@number'},
+        ['Boolean']   = {link = '@boolean'},
+        ['Float']     = {link = '@number.float'},
 
-    ['MoreMsg'] = {link = 'ErrorMsg'},
+        ['Identifier'] = {link = '@variable'},
+        ['Function']   = {link = '@function'},
 
-    ['Normal']       = {fg = gray1, bg = bg1},
-    ['NormalFloat']  = {fg = gray1, bg = bg1},
+        ['Statement']   = {link = '@keyword'},
+        ['Conditional'] = {link = '@keyword.conditional'},
+        ['Repeat']      = {link = '@keyword.repeat'},
+        ['Label']       = {link = '@label'},
+        ['Operator']    = {link = '@operator'},
+        ['Keyword']     = {link = '@keyword'},
+        ['Exception']   = {link = '@keyword.exception'},
 
-    ['FloatTitle']  = {link = 'Title'},
-    ['FloatFooter'] = {link = 'Title'},
+        ['PreProc']   = {link = '@keyword.directive'},
+        ['Include']   = {link = '@keyword.directive'},
+        ['Define']    = {link = '@keyword.directive.define'},
+        ['Macro']     = {link = 'Define'},
+        ['PreCondit'] = {link = '@keyword.directive'},
 
-    ['Question']     = {link = 'ErrorMsg'},
-    ['QuickFixLine'] = {link = 'ErrorMsg'},
-    ['Search']       = {link = 'CurSearch'},
+        ['Type']         = {link = '@type'},
+        ['StorageClass'] = {link = '@type'},
+        ['Structure']    = {link = '@type'},
+        ['Typedef']      = {link = '@type.definition'},
 
-    ['SpellBad']     = {undercurl = true},
-    ['SpellCap']     = {undercurl = true},
-    ['SpellLocal']   = {undercurl = true},
-    ['SpellRare']    = {undercurl = true},
-    ['StatusLine']   = {fg = gray1, bg = bg2, bold = true},
-    ['StatusLineNC'] = {fg = gray2, bg = bg2},
+        ['Special']        = {link = '@keyword'},
+        ['SpecialChar']    = {link = '@character.special'},
+        ['Tag']            = {link = '@keyword'},
+        ['Delimiter']      = {link = '@punctuation.delimiter'},
+        ['SpecialComment'] = {link = '@comment'},
+        ['Debug']          = {link = '@keyword.debug'},
 
-    ['Title'] = {fg = gray1, bold = true},
+        ['Underlined'] = {underline = true},
 
-    ['WarningMsg'] = {link = 'ErrorMsg'},
+        ['Ignore'] = {},
 
-    -- :h group-name
+        ['Error'] = {reverse = true},
 
-    ['Comment'] = {link = '@comment'},
+        ['Todo'] = {bold = true},
 
-    ['Constant']  = {link = '@constant'},
-    ['String']    = {link = '@string'},
-    ['Character'] = {link = '@character'},
-    ['Number']    = {link = '@number'},
-    ['Boolean']   = {link = '@boolean'},
-    ['Float']     = {link = '@number.float'},
+        ['Added']   = {link = '@diff.plus'},
+        ['Changed'] = {link = '@diff.delta'},
+        ['Removed'] = {link = '@diff.minus'},
 
-    ['Identifier'] = {link = '@variable'},
-    ['Function']   = {link = '@function'},
+        -- :h treesitter-highlight-groups
 
-    ['Statement']   = {link = '@keyword'},
-    ['Conditional'] = {link = '@keyword.conditional'},
-    ['Repeat']      = {link = '@keyword.repeat'},
-    ['Label']       = {link = '@label'},
-    ['Operator']    = {link = '@operator'},
-    ['Keyword']     = {link = '@keyword'},
-    ['Exception']   = {link = '@keyword.exception'},
+        ['@variable']                   = {fg = userdefined},
+        ['@variable.builtin']           = {fg = langdefined, bold = true},
+        ['@variable.parameter']         = {fg = userdefined, bold = true},
+        ['@variable.parameter.builtin'] = {fg = langdefined, bold = true},
+        ['@variable.member']            = {fg = userdefined},
 
-    ['PreProc']   = {link = '@keyword.directive'},
-    ['Include']   = {link = '@keyword.directive'},
-    ['Define']    = {link = '@keyword.directive.define'},
-    ['Macro']     = {link = 'Define'},
-    ['PreCondit'] = {link = '@keyword.directive'},
+        ['@constant']         = {fg = hardcoded},
+        ['@constant.builtin'] = {fg = langdefined},
+        ['@constant.macro']   = {fg = hardcoded},
 
-    ['Type']         = {link = '@type'},
-    ['StorageClass'] = {link = '@type'},
-    ['Structure']    = {link = '@type'},
-    ['Typedef']      = {link = '@type.definition'},
+        ['@module']         = {link = '@variable'},
+        ['@module.builtin'] = {link = '@variable.builtin'},
+        ['@label']          = {link = '@variable'},
 
-    ['Special']        = {link = '@keyword'},
-    ['SpecialChar']    = {link = '@character.special'},
-    ['Tag']            = {link = '@keyword'},
-    ['Delimiter']      = {link = '@punctuation.delimiter'},
-    ['SpecialComment'] = {link = '@comment'},
-    ['Debug']          = {link = '@keyword.debug'},
+        ['@string']                = {fg = hardcoded},
+        ['@string.documentation']  = {fg = hardcoded},
+        ['@string.regexp']         = {fg = langdefined},
+        ['@string.escape']         = {fg = langdefined},
+        ['@string.special']        = {fg = hardcoded},
+        ['@string.special.symbol'] = {fg = hardcoded},
+        ['@string.special.path']   = {fg = hardcoded},
+        ['@string.special.url']    = {fg = hardcoded, underline = true},
 
-    ['Underlined'] = {underline = true},
+        ['@character']         = {fg = hardcoded},
+        ['@character.special'] = {fg = langdefined},
 
-    ['Ignore'] = {},
+        ['@boolean']      = {fg = hardcoded},
+        ['@number']       = {fg = hardcoded},
+        ['@number.float'] = {fg = hardcoded},
 
-    ['Error'] = {fg = black, bg = gray1},
+        ['@type']            = {fg = langdefined},
+        ['@type.builtin']    = {fg = langdefined},
+        ['@type.definition'] = {fg = langdefined},
 
-    ['Todo'] = {fg = gray1, bold = true},
+        ['@attribute']         = {fg = userdefined},
+        ['@attribute.builtin'] = {fg = langdefined},
+        ['@property']          = {fg = userdefined},
 
-    ['Added']   = {link = '@diff.plus'},
-    ['Changed'] = {link = '@diff.delta'},
-    ['Removed'] = {link = '@diff.minus'},
+        ['@function']         = {fg = userdefined2},
+        ['@function.builtin'] = {fg = langdefined},
+        ['@function.call']    = {fg = userdefined2},
+        ['@function.macro']   = {fg = userdefined2},
 
-    -- :h treesitter-highlight-groups
+        ['@function.method']      = {link = '@function'},
+        ['@function.method.call'] = {link = '@function.call'},
 
-    ['@variable']                   = {fg = userdefined},
-    ['@variable.builtin']           = {fg = langdefined, bold = true},
-    ['@variable.parameter']         = {fg = userdefined, bold = true},
-    ['@variable.parameter.builtin'] = {fg = langdefined, bold = true},
-    ['@variable.member']            = {fg = userdefined},
+        ['@constructor'] = {link = '@function'},
+        ['@operator']    = {fg = langdefined},
 
-    ['@constant']         = {fg = hardcoded},
-    ['@constant.builtin'] = {fg = langdefined},
-    ['@constant.macro']   = {fg = hardcoded},
+        ['@keyword']           = {fg = langdefined, bold = true},
+        ['@keyword.coroutine'] = {fg = langdefined, bold = true},
+        ['@keyword.function']  = {fg = langdefined, bold = true},
+        ['@keyword.operator']  = {fg = langdefined, bold = true},
+        ['@keyword.import']    = {fg = langdefined, bold = true},
+        ['@keyword.type']      = {fg = langdefined, bold = true},
+        ['@keyword.modifier']  = {fg = langdefined, bold = true},
+        ['@keyword.repeat']    = {fg = langdefined, bold = true},
+        ['@keyword.return']    = {fg = langdefined, bold = true},
+        ['@keyword.debug']     = {fg = langdefined, bold = true},
+        ['@keyword.exception'] = {fg = langdefined, bold = true},
 
-    ['@module']         = {link = '@variable'},
-    ['@module.builtin'] = {fg = langdefined},
-    ['@label']          = {link = '@variable'},
+        ['@keyword.conditional']         = {fg = langdefined, bold = true},
+        ['@keyword.conditional.ternary'] = {fg = langdefined},
 
-    ['@string']                = {fg = hardcoded},
-    ['@string.documentation']  = {fg = hardcoded},
-    ['@string.regexp']         = {fg = langdefined},
-    ['@string.escape']         = {fg = langdefined},
-    ['@string.special']        = {fg = hardcoded},
-    ['@string.special.symbol'] = {fg = hardcoded},
-    ['@string.special.path']   = {fg = hardcoded},
-    ['@string.special.url']    = {fg = hardcoded, underline = true},
+        ['@keyword.directive']        = {fg = langdefined},
+        ['@keyword.directive.define'] = {fg = langdefined},
 
-    ['@character']         = {fg = hardcoded},
-    ['@character.special'] = {fg = langdefined},
+        ['@punctuation.delimiter'] = {fg = ignorable},
+        ['@punctuation.bracket']   = {fg = ignorable},
+        ['@punctuation.special']   = {fg = ignorable},
 
-    ['@boolean']      = {fg = hardcoded},
-    ['@number']       = {fg = hardcoded},
-    ['@number.float'] = {fg = hardcoded},
+        ['@comment']               = {fg = ignorable},
+        ['@comment.documentation'] = {fg = ignorable},
 
-    ['@type']            = {fg = langdefined},
-    ['@type.builtin']    = {fg = langdefined},
-    ['@type.definition'] = {fg = langdefined},
+        ['@comment.error']   = {link = '@comment'},
+        ['@comment.warning'] = {link = '@comment'},
+        ['@comment.todo']    = {link = '@comment'},
+        ['@comment.note']    = {link = '@comment'},
 
-    ['@attribute']         = {fg = userdefined},
-    ['@attribute.builtin'] = {fg = langdefined},
-    ['@property']          = {fg = userdefined},
+        ['@markup.strong']        = {bold = true},
+        ['@markup.italic']        = {italic = true},
+        ['@markup.strikethrough'] = {strikethrough = true},
+        ['@markup.underline']     = {underline = true},
 
-    ['@function']         = {fg = userdefined},
-    ['@function.builtin'] = {fg = langdefined},
-    ['@function.call']    = {fg = userdefined},
-    ['@function.macro']   = {fg = userdefined},
+        ['@markup.heading']   = {fg = heading, bold = true},
+        ['@markup.heading.1'] = {fg = heading, bold = true},
+        ['@markup.heading.2'] = {fg = heading},
+        ['@markup.heading.3'] = {fg = heading},
+        ['@markup.heading.4'] = {fg = heading},
+        ['@markup.heading.5'] = {fg = heading},
+        ['@markup.heading.6'] = {fg = heading},
 
-    ['@function.method']      = {link = '@function'},
-    ['@function.method.call'] = {link = '@function'},
+        ['@markup.quote'] = {fg = raw},
+        ['@markup.math']  = {fg = raw},
 
-    ['@constructor'] = {link = '@function'},
-    ['@operator']    = {fg = langdefined},
+        ['@markup.link']       = {fg = link, underline = true},
+        ['@markup.link.label'] = {fg = link, underline = true},
+        ['@markup.link.url']   = {fg = link, underline = true},
 
-    ['@keyword']           = {fg = langdefined, bold = true},
-    ['@keyword.coroutine'] = {fg = langdefined, bold = true},
-    ['@keyword.function']  = {fg = langdefined, bold = true},
-    ['@keyword.operator']  = {fg = langdefined, bold = true},
-    ['@keyword.import']    = {fg = langdefined, bold = true},
-    ['@keyword.type']      = {fg = langdefined, bold = true},
-    ['@keyword.modifier']  = {fg = langdefined, bold = true},
-    ['@keyword.repeat']    = {fg = langdefined, bold = true},
-    ['@keyword.return']    = {fg = langdefined, bold = true},
-    ['@keyword.debug']     = {fg = langdefined, bold = true},
-    ['@keyword.exception'] = {fg = langdefined, bold = true},
+        ['@markup.raw']       = {fg = raw},
+        ['@markup.raw.block'] = {fg = raw},
 
-    ['@keyword.conditional']         = {fg = langdefined, bold = true},
-    ['@keyword.conditional.ternary'] = {fg = langdefined},
+        ['@markup.list']           = {fg = list},
+        ['@markup.list.checked']   = {fg = list},
+        ['@markup.list.unchecked'] = {fg = list},
 
-    ['@keyword.directive']        = {fg = langdefined},
-    ['@keyword.directive.define'] = {fg = langdefined},
+        ['@diff.plus']  = {fg = diff_added},
+        ['@diff.minus'] = {fg = diff_deleted},
+        ['@diff.delta'] = {fg = diff_changed},
 
-    ['@punctuation.delimiter'] = {fg = ignorable},
-    ['@punctuation.bracket']   = {fg = ignorable},
-    ['@punctuation.special']   = {fg = ignorable},
+        ['@tag']           = {fg = userdefined},
+        ['@tag.builtin']   = {fg = langdefined},
+        ['@tag.attribute'] = {fg = userdefined},
+        ['@tag.delimiter'] = {fg = langdefined},
+    }
 
-    ['@comment']               = {fg = ignorable},
-    ['@comment.documentation'] = {fg = ignorable},
+    vim.cmd.highlight('clear')
 
-    ['@comment.error']   = {link = '@comment'},
-    ['@comment.warning'] = {link = '@comment'},
-    ['@comment.todo']    = {link = '@comment'},
-    ['@comment.note']    = {link = '@comment'},
-
-    ['@markup.strong']        = {bold = true},
-    ['@markup.italic']        = {italic = true},
-    ['@markup.strikethrough'] = {strikethrough = true},
-    ['@markup.underline']     = {underline = true},
-
-    ['@markup.heading']   = {fg = heading, bold = true},
-    ['@markup.heading.1'] = {fg = heading, bold = true},
-    ['@markup.heading.2'] = {fg = heading, bold = true},
-    ['@markup.heading.3'] = {fg = heading, bold = true},
-    ['@markup.heading.4'] = {fg = heading, bold = true},
-    ['@markup.heading.5'] = {fg = heading, bold = true},
-    ['@markup.heading.6'] = {fg = heading, bold = true},
-
-    ['@markup.quote'] = {fg = raw},
-    ['@markup.math']  = {fg = raw},
-
-    ['@markup.link']       = {fg = link, underline = true},
-    ['@markup.link.label'] = {fg = link, underline = true},
-    ['@markup.link.url']   = {fg = link, underline = true},
-
-    ['@markup.raw']       = {fg = raw},
-    ['@markup.raw.block'] = {fg = raw},
-
-    ['@markup.list']           = {fg = list},
-    ['@markup.list.checked']   = {fg = list},
-    ['@markup.list.unchecked'] = {fg = list},
-
-    ['@diff.plus']  = {fg = plus},
-    ['@diff.minus'] = {fg = minus},
-    ['@diff.delta'] = {fg = delta},
-
-    ['@tag']           = {fg = userdefined},
-    ['@tag.builtin']   = {fg = langdefined},
-    ['@tag.attribute'] = {fg = userdefined},
-    ['@tag.delimiter'] = {fg = langdefined},
-}
-
-vim.cmd.highlight('clear')
-
-for name, opts in pairs(colorscheme) do
-    vim.api.nvim_set_hl(0, name, opts)
+    for name, opts in pairs(colorscheme) do
+        vim.api.nvim_set_hl(0, name, opts)
+    end
 end
-
----
---- Diagnostics
----
-
-vim.diagnostic.config({signs = false})
 
 ---
 --- Plugins
 ---
 
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    vim.fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
+do
+    local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+    if not (vim.uv or vim.loop).fs_stat(lazypath) then
+        vim.fn.system({
+            'git',
+            'clone',
+            '--filter=blob:none',
+            'https://github.com/folke/lazy.nvim.git',
+            '--branch=stable', -- latest stable release
+            lazypath,
+        })
+    end
+    --- @diagnostic disable-next-line
+    vim.opt.rtp:prepend(lazypath)
+
+    require('lazy').setup({
+        {
+            'nvim-treesitter/nvim-treesitter',
+            build = ':TSUpdate',
+            config = function()
+                require('nvim-treesitter.configs').setup({
+                    ensure_installed = {'lua', 'vimdoc', 'query', 'c'},
+                    sync_install = false,
+                    auto_install = true,
+                    ignore_install = {},
+                    modules = {},
+                    highlight = {enable = true},
+                    incremental_selection = {
+                        enable = true,
+                        keymaps = {
+                            init_selection = '<C-M-j>',
+                            node_incremental = '<C-M-j>',
+                            scope_incremental = false,
+                            node_decremental = '<C-M-k>',
+                        },
+                    },
+                })
+            end,
+        },
+
+        {
+            'neovim/nvim-lspconfig',
+            dependencies = {
+                'williamboman/mason.nvim',
+                'williamboman/mason-lspconfig.nvim',
+                {'folke/neodev.nvim', opts = {}},
+            },
+            config = function()
+                require('mason').setup()
+                require('mason-lspconfig').setup({
+                    ensure_installed = {'lua_ls', 'clangd'},
+                    handlers = {
+                        function(client)
+                            require('lspconfig')[client].setup({})
+                        end,
+                    }
+                })
+
+                vim.api.nvim_create_autocmd('LspAttach', {
+                    callback = function(args)
+                        local client = vim.lsp.get_client_by_id(args.data.client_id)
+                        if client == nil then
+                            return
+                        end
+
+                        local function map(cap, mode, lhs, rhs)
+                            if client.supports_method(cap) then
+                                vim.keymap.set(mode, lhs, rhs, {buffer = args.buf})
+                            end
+                        end
+
+                        map('textDocument/definition', 'n',        'gd',        vim.lsp.buf.definition)
+                        map('textDocument/references', 'n',        '<Space>gr', vim.lsp.buf.references)
+                        map('textDocument/rename',     'n',        '<Space>lr', vim.lsp.buf.rename)
+                        map('textDocument/codeAction', {'n', 'v'}, '<Space>lc', vim.lsp.buf.code_action)
+                    end,
+                })
+            end,
+        },
     })
 end
-vim.opt.rtp:prepend(lazypath)
-
-require('lazy').setup({
-    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
-
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig',
-
-    {'folke/neodev.nvim', opts = {}}
-})
-
-require('mason').setup()
-require('mason-lspconfig').setup({
-    ensure_installed = {'lua_ls', 'clangd'},
-    handlers = {
-        function(client)
-            require('lspconfig')[client].setup({})
-        end,
-    }
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client == nil then
-            return
-        end
-
-        local function map(cap, mode, lhs, rhs)
-            if client.supports_method(cap) then
-                vim.keymap.set(mode, lhs, rhs, {buffer = args.buf})
-            end
-        end
-
-        map('textDocument/definition', 'n',        'gd',        vim.lsp.buf.definition)
-        map('textDocument/references', 'n',        '<Space>gr', vim.lsp.buf.references)
-        map('textDocument/rename',     'n',        '<Space>lr', vim.lsp.buf.rename)
-        map('textDocument/codeAction', {'n', 'v'}, '<Space>lc', vim.lsp.buf.code_action)
-    end,
-})
