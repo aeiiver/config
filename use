@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+true ${XDG_CACHE_HOME:=$HOME/.cache}
+true ${XDG_CONFIG_HOME:=$HOME/.config}
+true ${XDG_DATA_HOME:=$HOME/.local/share}
+true ${XDG_STATE_HOME:=$HOME/.local/state}
+
+mkdir -vp "$XDG_CACHE_HOME"
+mkdir -vp "$XDG_CONFIG_HOME"
+mkdir -vp "$XDG_DATA_HOME"
+mkdir -vp "$XDG_STATE_HOME"
+
+ln -vsf "$(realpath ./neovim)" "$XDG_CONFIG_HOME"/nvim
