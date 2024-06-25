@@ -2,14 +2,14 @@
 
 set -eu
 
-true ${XDG_CACHE_HOME:=$HOME/.cache}
-true ${XDG_CONFIG_HOME:=$HOME/.config}
-true ${XDG_DATA_HOME:=$HOME/.local/share}
-true ${XDG_STATE_HOME:=$HOME/.local/state}
+XDG_CONFIG_HOME="$HOME"/.config
+XDG_DATA_HOME="$HOME"/.local/share
+XDG_STATE_HOME="$HOME"/.local/state
+XDG_CACHE_HOME="$HOME"/.cache
 
-mkdir -vp "$XDG_CACHE_HOME"
 mkdir -vp "$XDG_CONFIG_HOME"
 mkdir -vp "$XDG_DATA_HOME"
 mkdir -vp "$XDG_STATE_HOME"
+mkdir -vp "$XDG_CACHE_HOME"
 
-ln -vsf "$(realpath ./neovim)" "$XDG_CONFIG_HOME"/nvim
+ln -vsfT "$(realpath ./neovim)" "$XDG_CONFIG_HOME/nvim"

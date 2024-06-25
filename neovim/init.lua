@@ -1,35 +1,8 @@
-vim.api.nvim_create_user_command('EditorConfig', function()
-    vim.cmd('tabedit .editorconfig')
-    if vim.fn.findfile('.editorconfig') == '' then
-        vim.api.nvim_buf_set_lines(0, 0, 1, false, {
-            '# EditorConfig is awesome: https://EditorConfig.org',
-            '',
-            'root = true',
-            '',
-            '[*]',
-            'indent_style = space',
-            'indent_size = 4',
-            'tab_width = 4',
-            'end_of_line = lf',
-            'charset = utf-8',
-            'trim_trailing_whitespace = true',
-            'insert_final_newline = true',
-        })
-    end
-end, {})
-
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    vim.fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    })
+if not vim.uv.fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
 end
---- @diagnostic disable-next-line
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
@@ -38,21 +11,12 @@ require('lazy').setup({
         build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = {'lua', 'vimdoc', 'query'},
+                ensure_installed = {'lua', 'vimdoc', 'c'},
                 sync_install = false,
                 auto_install = true,
                 ignore_install = {},
                 modules = {},
                 highlight = {enable = true},
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = '<C-M-j>',
-                        node_incremental = '<C-M-j>',
-                        scope_incremental = false,
-                        node_decremental = '<C-M-k>',
-                    },
-                },
             })
         end,
     },
@@ -62,7 +26,17 @@ require('lazy').setup({
         dependencies = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            {'folke/neodev.nvim', opts = {}},
+
+            {
+                'folke/lazydev.nvim',
+                ft = 'lua',
+                opts = {
+                    library = {
+                        {path = 'luvit-meta/library', words = {'vim%.uv'}},
+                    },
+                },
+            },
+            {'Bilal2453/luvit-meta', lazy = true},
         },
         config = function()
             require('mason').setup()
@@ -98,16 +72,4 @@ require('lazy').setup({
             })
         end,
     },
-
-    {
-        'NeogitOrg/neogit',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'sindrets/diffview.nvim',
-        },
-        config = true,
-    },
-}, {
-    change_detection = {enabled = false},
-    install = {colorscheme = {'default'}},
 })
